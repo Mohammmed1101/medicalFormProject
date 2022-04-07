@@ -1,0 +1,40 @@
+*{
+    margin: 0;
+    padding: 0;
+    
+}
+.herodes{
+    height: 100%;
+    width:  100%;
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    display:flex;
+
+  
+}
+.form-boxdes{
+    width: 520px ;
+    height: 410px ;
+    position: relative ;
+    margin:100px 70px 60px 360px;
+    padding: 5px ;
+    align-items: center;
+    box-shadow: 0 0 20px #28275a49;
+    background-color: #28275a49;
+    color: #fff;
+    text-align: center;
+
+   
+}
+ .h4,h4{
+    margin-top: 100px;
+}
+.imgdes{
+    height: 39%;
+    margin:-98px 53px 65px -3px;
+    width: 700px;
+    display: flex;
+    justify-content: center;
+  
+ }

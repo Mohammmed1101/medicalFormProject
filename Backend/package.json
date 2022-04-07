@@ -1,0 +1,45 @@
+{
+  "name": "tw-ac",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "connect": "^3.7.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.2",
+    "helmet": "^5.0.2",
+    "joi": "^17.6.0",
+    "joi-password": "^2.0.3",
+    "joi-password-complexity": "^5.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.1",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.4",
+    "nodemailer": "^6.7.2",
+    "nodemon": "^2.0.15",
+    "Router": "^2.1.0",
+    "routers": "^0.1.4",
+    "serve-static": "^1.14.2",
+    "st": "^3.0.0",
+    "translate": "^1.4.1",
+    "xlsx": "^0.18.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abeerat52/MyMidForm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/abeerat52/MyMidForm/issues"
+  },
+  "homepage": "https://github.com/abeerat52/MyMidForm#readme",
+  "devDependencies": {
+    "kill-port": "^1.6.1"
+  },
+  "description": ""
+}

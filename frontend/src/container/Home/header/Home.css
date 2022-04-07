@@ -1,0 +1,78 @@
+.p-c{
+display:flex;
+align-items: center;
+text-align: center;
+justify-content: center;
+height: 10%;
+width: 100%;
+min-height: fit-content;
+}
+.p-p{
+    display: flex;
+    align-items: center;
+    color: #9900EF;
+}
+.p-d-n{
+    font-size: 24px;
+    font-family: 'Cairo', sans-serif;
+
+}
+.p-d-r{
+    display: flex;
+    flex-direction: column;
+    margin: 14px 0 24px 0;
+}
+.p-d-r h1{
+    font-size: 20px;
+    font-family:  'Cairo', sans-serif;
+}
+.primary-text{
+    color: (--white);
+}
+.btn{
+    color: #F78DA7;
+    background-color: #ffffff;
+    border:#F78DA7;
+ 
+    border-radius: 15%;
+    margin: 10px;
+   
+}
+.p-r-t{
+    font-size: 19px;
+    margin: 5px 0 0 0;
+    font-family:  'Cairo', sans-serif;
+}
+.p-o .highlighted-btn{
+    margin: 0 0 0 28px;
+}
+
+.p-o .highlighted-btn:hover{
+    margin: 0 0 0 28px;
+    background-color: #9900EF;
+    color: #111;
+
+}
+.p-pic{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 0px 0px var(--white);
+    border-radius: 50%;
+    height: 330px;
+    width: 330px;
+    margin: 0 0px 0 100px;
+}
+.p-pic-bg{
+    height: 92%;
+    width: 92%;
+    background-image: url('../../../assets//Home/profilephoto.png');
+    background-size:contain;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.p-pic-bg:hover{
+    transform: scale(1.07);
+    transition: 1s ease-out;
+}

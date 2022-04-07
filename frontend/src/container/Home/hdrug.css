@@ -1,0 +1,25 @@
+
+.each-slide > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    height: 450px;
+    background: linear-gradient(90deg, rgba(6,147,227,0.7417102966841187) 0%, rgba(153,0,239,0.699825479930192) 100%);
+  }
+  
+  .each-slide span {
+    padding: 20px;
+    font-size: 20px;
+    background: #efefef;
+    text-align: center;
+  }
+  .Home-Drugs{
+height: 100%;
+  }
+  .Drughome{
+    margin-top:' -249px',
+  }
+  .lastDrugs{
+    margin-left: 32pc;
+  }

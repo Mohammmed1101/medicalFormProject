@@ -1,0 +1,40 @@
+
+.drugs{
+    height: 100%;
+    width:  90%;
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    align-items: center;
+    margin-left: 80px;
+    margin-top: 30px;
+
+}
+.card{
+
+border-radius: 20px;
+text-align: center;
+transition: .5s;
+margin-top: 40px;
+}
+.card:hover{
+    transform: scale(1.02);
+    transition: 0.5s ease-out;
+    box-shadow: 0 0 10px #28275a49;
+}
+.posts{
+    width: 70%;
+    margin-top: 20px;
+}
+.col-lg-3{
+    margin-top: 20px;
+}
+.postcard{
+    box-shadow: 0 0 10px #28275a49;
+    border-radius: 10px;
+    width: 100%;
+    align-items: center;
+    margin-left: 70px;
+    margin-top: 40px;
+
+}
