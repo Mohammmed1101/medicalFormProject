@@ -5,36 +5,50 @@ import "./DrugStyle.css"
 import Comment from './comment/Comment';
 import Rate from "./Rate"
 import CommentsList from './comment/CommentsList';
-
+import DeleteDrug from './DeleteDrug'
+import { useContext } from "react";
+import axios from "axios";
+import PostsContext from '../../utils/PostsContext';
+import BootstrapMenu from "bootstrap-menu";
 function DrugPage() {
+  const [deleteShow, setDeleteShow] = useState(false)
     const [Drug, setDrug] = useState([]);
+    const { deleteDrugs, Drugs, profile} = useContext(PostsContext)
+    const [errorOnePost, setErrorOnePost] = useState(null)
+      const [editShow, setEditShow] = useState(false)
+   
     const {id} = useParams();
-    console.log(id)
-    useEffect(() => {
-           const url = `/MyMediForm/drug/${id}`;
-          const fetchData = async () => {
-               try {
-                   const response = await fetch(url);
-                   const json = await response.json();
-                   console.log(JSON.stringify(json));
-                   setDrug(json)
-            } catch (error) {
-                console.log("error", error);
-            }
-        };
-        fetchData();
-    },[]);
+  
+  
+    const getDrug = async () => {
+      try {
+          const response = await axios.get( `/MyMediForm/drug/${id}`)
+          setDrug(response.data)
 
-  //   const DrugComment =[...Drug].map((Drug) => 
-  // <div className="row"  key={Drug.comments}>
-  // <div className="col-sm-5 col-md-6 col-12 pb-4">
-  //     <h1>Comments</h1>
-  //     <div className="comment mt-4 text-justify float-left"> <img src="https://i.imgur.com/yTFUilP.jpg" alt="" className="rounded-circle" width="40" height="40"/>
-  //     <h6>{Drug.comments.owner}</h6>
-  //         <h4></h4> <span>{Drug.comments.Date}</span> <br/>
-  //         <p>{Drug.comments.comment}</p>
-  //     </div>
-  //     </div>  </div>)
+      } catch (error) {
+          if (error.response)
+          setErrorOnePost(error.response.data)
+          setDrug(null)
+      }
+  }
+    useEffect(() => {
+      const menu1 = new BootstrapMenu('#menu-posts', {
+          menuEvent: 'click', // default value, can be omitted
+          // menuSource: 'element',
+          menuPosition: 'belowLeft', // default value, can be omitted
+          actions: [{
+              name: 'Edit',
+              onClick: () => setEditShow(true)
+          }, {
+              name: 'Delete',
+              onClick: () => setDeleteShow(true)
+
+
+          }]
+      })
+      getDrug()
+
+  }, [Drugs])
 
  return ( 
       <div >
@@ -53,6 +67,7 @@ function DrugPage() {
 
                       <p>التقييمات</p>
                       <Rate/>
+                      <DeleteDrug show={deleteShow} setShow={setDeleteShow} drugId={id} />
                     </div>
                   </div>
                 </div>
@@ -118,6 +133,7 @@ function DrugPage() {
           </div>
         </div>
     </div>
+
         </div>
     );
 }

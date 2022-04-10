@@ -5,14 +5,17 @@ import SpecialistLicense from './SpecialistLicense';
 import { useRef } from 'react';
 function Profile() {
   const show= useRef("");  
+
   function Specialist(){
     show.current.style.display="block"
+
   }
 
 
 
     const { profile } = useContext(PostsContext)
- if(!profile) return<h3>not working...</h3>
+    if(!profile) return<img src='https://www.yanbuweather.com/pages/cloudsat/loading.gif?1' width={300}></img>
+
     return (
         <div >
         <div className="container">
@@ -25,7 +28,7 @@ function Profile() {
                         {profile.avatar?<img src={profile.avatar} alt="pr" className="rounded-circle" width="150"/>:""}
                           <div className="mt-3">
                             <h4>{profile.firstName} {profile.lastName}</h4>
-                            <button className="btn btn-outline-primary" onClick={Specialist}>الترقيه الى حساب طبيب</button>
+                            <button className="btn btn-outline-primary" onClick={Specialist} >الترقيه الى حساب طبيب</button>
                             <SpecialistLicense ref ={show}/>
                           </div>
                         </div>
@@ -77,9 +80,7 @@ function Profile() {
                   <div className="col-md-4 mb-3">
                   {profile.comments?
                     <div className="card">
-                       
-                                   <div className="card-body">
-
+                    <div className="card-body">
                   <br/>   التعليقات اللي قمت بنشرها 
                      {profile.comments }
                       </div>

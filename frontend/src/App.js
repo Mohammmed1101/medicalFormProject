@@ -17,8 +17,9 @@ import axios from "axios";
 import PostsContext from "./utils/PostsContext"
 import { useParams } from "react-router-dom";
 import NewPosts from './container/posts/NewPost';
-import DRAprofile from "./container/profile/DRAProfile"
 import CompanyProfile from './container/profile/CompanyProfile';
+import Forgetpassword from './container/login/Forgetpassword';
+import ResetPassword from "./container/login/ResetPassword"
 //import Chat from "./container/Chat/Components/Chat/Chat"
 function App() {
 
@@ -26,6 +27,9 @@ function App() {
   const [errorLogin, setErrorLogin] = useState(null)
   const [profile, setProfile] = useState(null)
   const [Drug, setDrug] = useState([]);
+  const [errorResetPassword, setErrorResetPassword] = useState(null)
+  const [errorForgetPassword, setErrorForgetPassword] = useState(null)
+  const [successForgetPassword, setSuccessForgetPassword] = useState(null)
   const navigate = useNavigate();
 
 
@@ -67,6 +71,55 @@ function App() {
       else console.log(error)
     }
   }
+
+//// 
+
+const forgetPassword = async e => {
+  e.preventDefault()
+  try {
+    const form = e.target
+    const emailOrUsername = form.elements.emailOrUsername.value
+    let userBody
+    if (emailOrUsername.includes("@")) {
+      userBody = {
+        email: emailOrUsername,
+      }
+    } else
+      userBody = {
+        username: emailOrUsername,
+      }
+
+    await axios.post("/MyMediForm/auth/forgot-password", userBody)
+    setErrorForgetPassword(null)
+    setSuccessForgetPassword("تم ارسال رابط استعاده كلمه المرور الى البريد الالكتروني الخاص بك ")
+
+  } catch (error) {
+    if (error.response) setErrorForgetPassword(error.response.data)
+    else console.log(error)
+  }
+}
+/////////////////
+const resetPassword = async (e, token) => {
+  e.preventDefault()
+  try {
+    const form = e.target
+    const password = form.elements.password.value
+    const confirmPassword = form.elements.confirmPassword.value
+    if (password !== confirmPassword) setErrorResetPassword("غير متطابقه!")
+
+    const userBody = {
+      password: password,
+    }
+
+    await axios.post(`/MyMediForm/auth/reset-password/${token}`, userBody)
+    console.log("password reset")
+    setErrorResetPassword(null)
+    navigate("/login")
+  } catch (error) {
+    if (error.response) setErrorResetPassword(error.response.data)
+    else console.log(error)
+  }
+}
   ///////////////add new drug
   const addDrug = async e => {
     e.preventDefault()
@@ -93,6 +146,23 @@ function App() {
       else console.log(error)
     }
   }
+
+  const deleteDrugs = async drugId => {
+    try {
+
+      await axios.delete(`/MyMediForm/drug/${drugId}`, {
+        headers: {
+          Authorization: localStorage.tokenSocial
+        },
+      })
+      getProfile()
+    } catch (error) {
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
+    }
+  }
+
+
   //////////////add new comment 
 
 
@@ -151,8 +221,7 @@ function App() {
         headers: {
           Authorization: localStorage.tokenSocial
         },
-      })
-
+      })      
       getProfile()
       toast("added post");
     } catch (error) {
@@ -161,6 +230,21 @@ function App() {
     }
   }
 
+  const deletePost = async postId => {
+    try {
+
+      await axios.delete(`/MyMediForm/posts/${postId}`, {
+        headers: {
+          Authorization: localStorage.tokenSocial
+        },
+      })
+      getProfile()
+    } catch (error) {
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
+    }
+  }
+  
   /////////////////////
   const postLike = async (drugId ,commentId) => {
     try {
@@ -185,7 +269,14 @@ function App() {
     addComment,
     addPost,
     addRate,
-    postLike
+    postLike,
+    deletePost,
+    deleteDrugs,
+    errorForgetPassword, 
+    forgetPassword,
+     successForgetPassword ,
+     resetPassword,
+     errorResetPassword
   }
 useEffect (()=>{
   getProfile()
@@ -216,8 +307,9 @@ useEffect (()=>{
         <Route path="/profile" element={<Profile />} />
         <Route path="/postssss" element={<NewPosts />} />
         {/* <Route path="/chat" element={<Chat />} /> */}
-        <Route path="/draprofile" element={<DRAprofile />} />
         <Route path="/Companyprofile" element={<CompanyProfile/>} />
+        <Route path="/Forgetpassword" element={<Forgetpassword/>} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
       </Routes>
     </PostsContext.Provider >
 

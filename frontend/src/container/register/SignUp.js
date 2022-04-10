@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import axios from "axios";
-import { TextField } from '@mui/material';
+
 //slid  
 export default function SignUp() {
     const user = useRef(null);
@@ -29,50 +29,35 @@ export default function SignUp() {
 
     // link with backend for useer
 
-    const [users, setUser] = useState({
-        email: "", firstName: "", password: "", lastName: "", username: ""
-    })
+    const [gender, setGender] = React.useState('');
 
-    let name, value;
-    const hh = (e) => {
-        console.log(e)
-        name = e.target.name;
-        value = e.target.value;
-        setUser({ ...users, [name]: value })
-    }
-
-    const PostData = async (e) => {
-        e.preventDefault();
-
-        const { email, firstName, password, lastName, username } = users
-
-        const res = await fetch("/MyMediForm/auth/signup", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ firstName, lastName, username, email, password })
-        })
-
-        const data = await res.json();
-        if (res.status === 422 || !data) {
-            window.alert("Invalid reg")
-            console.log("")
-        } else {
-            window.alert("check your email")
-            console.log("done")
-            nav('/login');
+    const signupforConsumer = async e => {
+        e.preventDefault()
+        try {
+            const form = e.target
+            const userBody = {
+                firstName: form.elements.firstName.value,
+                lastName: form.elements.lastName.value,
+                username: form.elements.username.value,
+                email: form.elements.email.value,
+                password: form.elements.password.value,
+                gender:gender
+            
+            }
+            await axios.post("/MyMediForm/auth/signup", userBody)
+            console.log("sucesfull")
+            nav("/login")
+        } catch (error) {
+            return alert("ERROR!!" + error.response.data)
+          
         }
-        console.log(JSON.stringify({
-            email, firstName, password, lastName, username
-        }))
     }
 
 
 
 
     // for company 
-
+  
     const signupforCompany = async e => {
         e.preventDefault()
         try {
@@ -83,12 +68,14 @@ export default function SignUp() {
                 username: form.elements.username.value,
                 email: form.elements.email.value,
                 password: form.elements.password.value,
+              
             }
+            console.log(form.elements.gender)
             await axios.post("/MyMediForm/auth/signup/company", userBody)
             console.log("sucesfull")
             nav("/login")
         } catch (error) {
-            return ("ERROR!!" + error)
+            return alert("ERROR!!" + error.response.data)
         }
     }
 
@@ -102,13 +89,16 @@ export default function SignUp() {
                     <button type='button' className='t-b' onClick={userreg}>الشركات</button>
                 </div>
 
-                <form method='POST' ref={user} id="user" className='input'>
-                    <input type="text" onChange={hh} name="username" required className='input-field' placeholder='اسم المستخدم'></input>
-                    <input type="text" onChange={hh} name="firstName" required className='input-field' placeholder='الأسم'></input>
-                    <input type="text" onChange={hh} name="lastName" required className='input-field' placeholder='أسم العائله'></input>
-                    <input type="email" onChange={hh} name="email" required className='input-field' placeholder='البريد الالكتروني' ></input>
-                    <input type="password" onChange={hh} required name="password" className='input-field' placeholder='كلمه السر'></input>
-                    <button className='submit-btn' onClick={PostData} > إنشاء حساب</button>
+                <form method='POST' ref={user} id="user" className='input' onSubmit={signupforConsumer}>
+                    <input type="text" name="username" required className='input-field' placeholder='اسم المستخدم'></input>
+                    <input type="text" name="firstName" required className='input-field' placeholder='الأسم'></input>
+                    <input type="text"  name="lastName" required className='input-field' placeholder='أسم العائله'></input>                    
+                    <input type="email"  name="email" required className='input-field' placeholder='البريد الالكتروني' ></input>
+                    <input type="password"  required name="password" className='input-field' placeholder='كلمه السر'></input>
+                    <label>انثى</label> <input id='fmale' type="radio" onClick={() => setGender('fmale')} name="gender"  value="fmale"/>  
+                    <label >ذكر</label> <input id='male' type="radio" onClick={() => setGender('male')}  name="gender"   value="male"/> 
+                    <button className='submit-btn' type="submit" name='submit' > إنشاء حساب</button>
+                    
                     <p> لديك حساب مسبقا؟<Link to="/login">تسجيل الدخول </Link></p>
                 </form>
 
@@ -117,12 +107,13 @@ export default function SignUp() {
                     <input type="text" name="companyName" className='input-field' placeholder='أسم الشركه' required></input>
                     <input type="number" name="company_No" className='input-field' placeholder='رقم الشركه' required></input>
                     <input type="text" name="username" className='input-field' placeholder='اسم المستخدم' required></input>
-                    <input type="email" name="email" className='input-field' placeholder='البريد الالكتروني' required></input>
+                    <input type="email" name="email"  className='input-field' placeholder='البريد الالكتروني' required></input>
                     <input type="password" name="password" className='input-field' placeholder='كلمه السر' required></input>
                     <button type="submit" name='submit' className='submit-btn'> إنشاء حساب</button>
+                    <p> لديك حساب مسبقا؟<Link to="/login">تسجيل الدخول </Link></p>  
                 </form>
 
-                <p> لديك حساب مسبقا؟<Link to="/login">تسجيل الدخول </Link></p>
+             
 
             </div>
 

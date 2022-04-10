@@ -15,7 +15,7 @@ function Posts() {
             }
         };
           fetchData();
-          console.log(post)
+         
     
     }, []);
    

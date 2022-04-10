@@ -7,7 +7,7 @@ export default function AddDrug() {
     const { addDrug } = useContext(PostsContext)
 
     return (
-    <div className='form-box'>
+    <div className='Adddrug form-box' >
   <Form onSubmit={addDrug}>
   <Form.Label  className="mb-3" > اضافه دواء </Form.Label>
 

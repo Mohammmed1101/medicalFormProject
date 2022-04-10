@@ -8,6 +8,7 @@ import PostsContext from '../../../utils/PostsContext';
 export default  function CommentsList() {
         const {postLike} = useContext(PostsContext)
     const {id} = useParams();
+   
 
         const url = `/MyMediForm/drug/${id}/comments`;
         const [Comment, setComment] = useState([]);
@@ -25,10 +26,12 @@ export default  function CommentsList() {
               fetchData();
          
         }, []);
-
+     
         const listComment = [...Comment].sort((a, b) => b.likes.length - a.likes.length)
         .map((Comment) =>
             <div key={Comment.id}>
+              {Comment.Drugid=id?"":""}
+             
                 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"/>
 <div class="container">
 <div class="row">
@@ -66,7 +69,6 @@ export default  function CommentsList() {
         </div>
         );
     
-
     return (
         <div className='Comment'>
          <div>
