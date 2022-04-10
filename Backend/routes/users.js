@@ -909,7 +909,7 @@ router.get("/profile", async (req, res) => {
         const userId = decryptToken.id
         req.userId = userId
 
-        const user = await User.findById(req.userId).select("-password")
+        const user = await User.findById(req.userId).select("-password").populate("comments")
 
         if (!user) return res.status(404).json("user not found")
         // console.log(user)
