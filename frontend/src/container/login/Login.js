@@ -20,7 +20,7 @@ export default function Login() {
           {errorLogin !== null? <Alert severity="error">{errorLogin}</Alert> : null}
              <button type="submit"   className="submit-btnlog" > {" "}تسجيل الدخول</button>
              <p> ليس لديك حساب؟<Link to="/signup">أنشئ حسابك الآن</Link></p>
-             <p><Link to="/signup">نسيت كلمه المرور؟</Link></p>
+             <p><Link to="/forgetpassword">نسيت كلمه المرور؟</Link></p>
              </form>
         </div>
       

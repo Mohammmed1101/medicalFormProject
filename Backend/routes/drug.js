@@ -64,18 +64,11 @@ router.get("/:id", async (req, res) => {
         if (!mongoose.Types.ObjectId.isValid(id))
             return res.status(400).send("The path is not valid")
 
-        const drugs = await drug.findById(req.params.id).populate("rating")//.populate({
+         const drugs = await drug.findById(req.params.id).populate("rating")//.populate({
         //     path: "rating",
-        //     populate: {
-        //         path: "rate",
-        //     },
+        //     model: rate }).populate({path: "owner",model:  "comment"})
          
-        // }).populate("comments").populate({
-        //     path: "comments",
-        //     populate: {
-        //         path: "owner",
-        //     },
-        // })
+        
         if (!drugs) return res.status(404).json("drugs is not found")
         res.json(drugs)
 

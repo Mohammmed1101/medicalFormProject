@@ -17,29 +17,29 @@ export default function homepage() {
                 </span>
             </div>
             <div className='p-d-r'>
-            <span className='primary-text'>
+            <span className='primar'>
                     {" "}
                     <h1>
                         {" "}
                         <ReactTypical  
                                steps={[
                                    " أكبر منصة أدوية",
-                                   1000,
+                                   3000,
 
                                    " تفاصيل عن كل أدويتك باللغه العربيه",
-                                   1000,
+                                   3000,
 
                                    " أستطلاعات واراء المستخدمين",
-                                   1000,
+                                   3000,
 
                                    " تجمع لمعظم الاطباء",
                                    1000,
 
                                    "الشركات والمنظمات ايضا",
-                                   1000,
+                                   3000,
                                    
                                    "اخر الأخبار الطبية",
-                                   1000,
+                                   3000,
                                ]}
                                loop={Infinity}
                                wrapper="span"

@@ -38,8 +38,14 @@ router.post("/signup", async (req, res) => {
             password: hash,
             role ,
         })
-        if (userBody.gender=="male")  userBody.avatar ="https://www.terrainhopperusa.com/wp-content/uploads/2019/01/avatar-man.png"
-        else if (userBody.gender=="fmale")userBody.avatar ="https://www.terrainhopperusa.com/wp-content/uploads/2019/01/avatar-woman.png"
+        if (userBody.gender=="male") {
+             userBody.avatar ="https://www.terrainhopperusa.com/wp-content/uploads/2019/01/avatar-man.png"
+            }
+        else if (userBody.gender=="fmale"){
+            userBody.avatar ="https://www.terrainhopperusa.com/wp-content/uploads/2019/01/avatar-woman.png"
+         
+        }
+        
         const transporter = nodemailer.createTransport({
             service: "gmail",
             port: 587,
@@ -151,7 +157,7 @@ router.post("/signup", async (req, res) => {
             <body style="background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;">
        
                     <tr>
-                        <td bgcolor="#000B49" align="center">
+                        <td bgcolor="#C797C8" align="center">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                                 <tr>
                                     <td align="center" valign="top" style="padding: 30px 10px 40px 10px;"> </td>
@@ -160,18 +166,18 @@ router.post("/signup", async (req, res) => {
                         </td>
                     </tr>
                     <tr>
-                        <td bgcolor="#000B49" align="center" style="padding: 0px 10px 0px 10px;">
+                        <td bgcolor="#C797C8" align="center" style="padding: 0px 10px 0px 10px;">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                                 <tr>
                                     <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
-                                         <img src="https://cdn-icons-png.flaticon.com/512/5331/5331926.png" width="125" height="120" style="display: block; border: 0px;" />
+                                         <img src="https://cdn-icons-png.flaticon.com/512/5331/5331926.png" width="125" height="120" style="display: block; border: 0px; color:" />
                                     </td>
                                 </tr>
                             </table>
                         </td>
                     </tr>
                     <tr>
-                        <td bgcolor="#000B49" align="center" style="padding: 0px 10px 0px 10px;">
+                        <td bgcolor="#C797C8" align="center" style="padding: 0px 10px 0px 10px;">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                                 <tr>
                                     <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
@@ -186,7 +192,7 @@ router.post("/signup", async (req, res) => {
                                                 <td bgcolor="#ffffff" align="center" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
                                                     <table border="0" cellspacing="0" cellpadding="0">
                                                         <tr>
-                                                            <td align="center" style="border-radius: 3px;" bgcolor="#000B49"><a href="http://localhost:3000/email_verified/${token}" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #000B49; display: inline-block;">Confirm Account</a></td>
+                                                            <td align="center" style="border-radius: 3px;" bgcolor="#C797C8"><a href="http://localhost:3000/email_verified/${token}" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #C797C8; display: inline-block;">تأكيد الحساب</a></td>
                                                         </tr>
                                                     </table>
                                                 </td>
@@ -196,11 +202,11 @@ router.post("/signup", async (req, res) => {
                                 </tr> 
                 </table>
                 <tr>
-                    <td bgcolor="#000B49" align="left" style="padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
+                    <td bgcolor="#C797C8" align="left" style="padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
                     
                 </tr>
                 <tr>
-                    <td bgcolor="#000B49" align="center" style="padding: 30px 10px 0px 10px;">
+                    <td bgcolor="#C797C8" align="center" style="padding: 30px 10px 0px 10px;">
                     <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                     
                 <tr>
@@ -698,6 +704,7 @@ router.post("/signup/dra", async (req, res) => {
             email,
             password: hash,
             role:"DRA" ,
+           avatar :"http://old.sfda.gov.sa/_layouts/sfda/new/images/default_news.png"
         })
                const transporter = nodemailer.createTransport({
             service: "gmail",
@@ -1038,7 +1045,7 @@ router.post("/forgot-password", async (req, res) => {
         })
         const token = jwt.sign({ id: user._id, forgotPassword: true }, process.env.JWT_SECRET_KEY, { expiresIn: "15d" })
         await transporter.sendMail({
-            from: ` 'Team Work' <${process.env.Email_KEY}>`, // sender address
+            from: ` 'MyMideForm' <${process.env.Email_KEY}>`, // sender address
             to: user.email, // list of receivers
             subject: "Reset Password", // Subject line
             html: `<!DOCTYPE html>
@@ -1135,11 +1142,11 @@ router.post("/forgot-password", async (req, res) => {
             
             <body style="background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;">
                 <!-- HIDDEN PREHEADER TEXT -->
-                <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'Lato', Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;"> We're thrilled to have you here! Get ready to dive into your new account. </div>
+                <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'Lato', Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;"> سمعنا ان لديك مشكله في التسجيل الدخول لدينا  </div>
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                     <!-- LOGO -->
                     <tr>
-                        <td bgcolor="#000B49" align="center">
+                        <td bgcolor="#C797C8" align="center">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                                 <tr>
                                     <td align="center" valign="top" style="padding: 30px 10px 40px 10px;"> </td>
@@ -1148,22 +1155,22 @@ router.post("/forgot-password", async (req, res) => {
                         </td>
                     </tr>
                     <tr>
-                        <td bgcolor="#000B49" align="center" style="padding: 0px 10px 0px 10px;">
+                        <td bgcolor="#C797C8" align="center" style="padding: 0px 10px 0px 10px;">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                                 <tr>
                                     <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
-                                        <h1 style="font-size: 48px; font-weight: 400; margin: 2;">Welcome!</h1> <img src=" https://cdn-icons-png.flaticon.com/512/6159/6159382.png" width="125" height="120" style="display: block; border: 0px;" />
+                                        <h1 style="font-size: 48px; font-weight: 400; margin: 2;">مرحبا بعودتك</h1> <img src="https://cdn-icons-png.flaticon.com/512/1745/1745558.png" width="125" height="120" style="display: block; border: 0px;" />
                                     </td>
                                 </tr>
                             </table>
                         </td>
                     </tr>
                     <tr>
-                        <td bgcolor="#000B49" align="center" style="padding: 0px 10px 0px 10px;">
+                        <td bgcolor="#C797C8" align="center" style="padding: 0px 10px 0px 10px;">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                                 <tr>
                                     <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                                        <p style="margin: 0;">Click to Reset Password if forget password your account</p>
+                                        <p style="margin: 0;">اضغط على الزر ادناه لاستعاده كلمه المرور الخاصه بك</p>
                                     </td>
                                 </tr>
                                 <tr>
@@ -1173,7 +1180,7 @@ router.post("/forgot-password", async (req, res) => {
                                                 <td bgcolor="#ffffff" align="center" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
                                                     <table border="0" cellspacing="0" cellpadding="0">
                                                         <tr>
-                                                            <td align="center" style="border-radius: 3px;" bgcolor="#000B49"><a href="http://localhost:3000/reset-password/${token}" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #000B49; display: inline-block;"> Reset Password</a></td>
+                                                            <td align="center" style="border-radius: 3px;" bgcolor="#C797C8"><a href="http://localhost:3000/reset-password/${token}" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #C797C8; display: inline-block;"> Reset Password</a></td>
                                                         </tr>
                                                     </table>
                                                 </td>
@@ -1183,11 +1190,11 @@ router.post("/forgot-password", async (req, res) => {
                                 </tr> 
                 </table>
                 <tr>
-                    <td bgcolor="#000B49" align="left" style="padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
+                    <td bgcolor="#C797C8" align="left" style="padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
                     
                 </tr>
                 <tr>
-                    <td bgcolor="#000B49" align="center" style="padding: 30px 10px 0px 10px;">
+                    <td bgcolor="#C797C8" align="center" style="padding: 30px 10px 0px 10px;">
                     <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                     
                 <tr>

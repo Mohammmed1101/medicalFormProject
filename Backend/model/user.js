@@ -32,6 +32,10 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: "comment"
     }],
+    post: [{
+        type: mongoose.Types.ObjectId,
+        ref: "post"
+    }],
 }) 
 const signupJoi= (input) => Joi.object({
     firstName : Joi.string().regex(/^[a-zA-Z]+$/).alphanum().min(3).max(50).required(),
@@ -98,6 +102,15 @@ const loginJoi =  (input) => Joi.object({
 const resetPassJoi= (input) => Joi.object({
     username : Joi.string().regex(/^[a-zA-Z0-9._]+$/).min(4).max(25),
     email: Joi.string().email(),
+    password: passwordComplexity({
+        min: 8,
+        max: 30,
+        lowerCase: 1,
+        upperCase: 1,
+        numeric: 1,
+        symbol: 1,
+        requirementCount: 3,
+      })
 }).validate(input)
 
 const profileJoi= (input) => Joi.object({

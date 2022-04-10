@@ -6,7 +6,7 @@ function NewPost(props) {
     const { addPost } = useContext(PostsContext)
 
     return (
-        <div className='form-box'>
+        <div className='form-box' style={{"margin-left":"-1px", "width":"40%"}}>
         <Form onSubmit={addPost}>
         <Form.Label  className="mb-3" > أضافه منشور جديد </Form.Label>
       
