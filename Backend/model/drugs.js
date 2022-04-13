@@ -15,6 +15,10 @@ const drugSchema = new mongoose.Schema({
     description: String,
     termOfUse: String,
     image: String,
+    owner: {
+      type: mongoose.Types.ObjectId,
+      ref: "user"
+  },
     comments: [{
         type: mongoose.Types.ObjectId,
         ref: "comment"

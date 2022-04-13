@@ -64,7 +64,6 @@ function DrugPage() {
                       <h4>{Drug.Name}</h4>
                       <p className="text-secondary mb-1">دواء مصرح من </p>
                       <p className="text-muted font-size-sm">هيئه الدواء والغذاء في السعوديه</p>
-
                       <p>التقييمات</p>
                       <Rate/>
                       <DeleteDrug show={deleteShow} setShow={setDeleteShow} drugId={id} />
@@ -73,6 +72,10 @@ function DrugPage() {
                 </div>
               </div>
             </div>
+
+           
+          
+
             <div className="col-md-8">
               <div className="card mb-3">
                 <div className="card-body">
@@ -114,24 +117,27 @@ function DrugPage() {
                 </div>
               </div>
               <div className="row gutters-sm">
-                <div className="col-sm-6 mb-3">
+                <div className="col-sm96 mb-3 ">
                   <div className="card h-100">
                     <div className="card-body">
                     <CommentsList/>
                     </div>
                   </div>
                 </div>
-                <div className="col-sm-6 mb-3">
-                  <div className="card h-100" >
-                    <div className="card-body">
-                      <Comment/>
-                    </div>
-                  </div>
-                </div>
+                
               </div>
             </div>
           </div>
+          
         </div>
+        <div className="col-md-4 mb-9" style={{"margin-top": "-1567px"}}>
+                  <div className="card " >
+                    <div className="card-body">
+                    <div className=" align-items-center text-center">
+                      <Comment/>
+                      </div> </div>
+                  </div>
+                </div>
     </div>
 
         </div>

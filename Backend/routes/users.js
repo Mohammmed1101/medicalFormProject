@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt")
 const XLSX = require("xlsx")
 const wb = XLSX.readFile("./companyNo.xlsx")
 const { User, signupJoi, loginJoi, profileJoi, resetPassJoi, CompanyJoi,editCompanyJoi } = require("../model/user")
+const {SpecialistLicenses,SpecialistJoi}=require("../model/SpecialistLicense")
 const jwt = require("jsonwebtoken")
 require('dotenv').config()
 //user signup
@@ -916,8 +917,14 @@ router.get("/profile", async (req, res) => {
         const userId = decryptToken.id
         req.userId = userId
 
-        const user = await User.findById(req.userId).select("-password")
-
+        const user = await User.findById(req.userId).select("-password").populate({ path:"comments" ,populate:{path:"comment"}})
+        .populate({ 
+            path: 'post',
+            populate: {
+              path: 'owner',
+              model: 'Post'
+            } 
+         })
         if (!user) return res.status(404).json("user not found")
         // console.log(user)
         res.json(user)
@@ -1248,13 +1255,44 @@ router.delete("/:id", async (req, res) => {
     }
   });
 ///
-router.get("/search/:key", async (req, res) => {
- 
-    let data = await User.find({
-        "$or":[
-            {Name:{$regex:req.params.key}}
-        ]
-    })
-    res.send(data)
+router.post("/upgrade", async (req, res) => {
+    try {
+        //check token
+        const token = req.header("Authorization")
+        if (!token) return res.status(401).json("token is missing")
+
+        const decryptToken = jwt.verify(token, process.env.JWT_SECRET_KEY)
+        const UserId = decryptToken.id
+        req.UserId = UserId
+
+        const user = await User.findById(UserId).select("-password")
+        if (!user) return res.status(404).json("User not found")
+
+        const isConsumer = await User.findById(UserId)
+        if (!isConsumer ) return res.status(404).json("user not found")
+      //  if (isConsumer.role!=="Consumer") return res.status(404).send("you are not allowed to add comments ")
+        
+        //validate
+        const result = SpecialistJoi(req.body)
+        if (result.error) return res.status(404).json(result.error.details[0].message)
+
+        //requset body comment
+        const {Licensenumber} = req.body
+        //create comment 
+
+        const newSpecialistLicense = new SpecialistLicenses({
+            Licensenumber,
+              owner: req.UserId,
+             })
+        
+
+        await User.findByIdAndUpdate(req.UserId, { $push: {   SpecialistLicense: newSpecialistLicense._id } })
+        await newSpecialistLicense.save()
+        res.json(newSpecialistLicense)
+
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).json("The problem in server")
+    }
 })
 module.exports = router;

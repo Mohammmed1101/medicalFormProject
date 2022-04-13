@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema({
     }],
     post: [{
         type: mongoose.Types.ObjectId,
-        ref: "post"
+        ref: "Post"
     }],
 }) 
 const signupJoi= (input) => Joi.object({
