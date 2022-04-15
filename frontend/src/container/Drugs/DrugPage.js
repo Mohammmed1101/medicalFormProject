@@ -130,7 +130,7 @@ function DrugPage() {
           </div>
           
         </div>
-        <div className="col-md-4 mb-9" style={{"margin-top": "-1567px"}}>
+        <div className="col-md-4 mb-9" style={{"margin-top": "-275px"}}>
                   <div className="card " >
                     <div className="card-body">
                     <div className=" align-items-center text-center">

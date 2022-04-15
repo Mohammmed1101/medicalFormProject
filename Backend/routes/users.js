@@ -5,7 +5,7 @@ const router = express.Router()
 const bcrypt = require("bcrypt")
 const XLSX = require("xlsx")
 const wb = XLSX.readFile("./companyNo.xlsx")
-const { User, signupJoi, loginJoi, profileJoi, resetPassJoi, CompanyJoi,editCompanyJoi } = require("../model/user")
+const { User, signupJoi, loginJoi, profileJoi,signupDRAJoi, resetPassJoi, CompanyJoi,editCompanyJoi, } = require("../model/user")
 const {SpecialistLicenses,SpecialistJoi}=require("../model/SpecialistLicense")
 const jwt = require("jsonwebtoken")
 require('dotenv').config()
@@ -471,6 +471,26 @@ router.post("/signup/company", async (req, res) => {
             password: hash,
             role:"Company" ,
         })
+
+        const ws =wb.Sheets[wb.SheetNames[0]]
+        let value =true
+       // console.log(ws[`A${5}`].v==company_No)
+       loop:for (let i =2;i <1000;i++){
+               const row =ws[`A${i}`].v
+            if (row==userBody.company_No ){
+              console.log("register comblited")
+              value =true
+              break 
+              } else 
+             value =false
+          continue
+            }
+            console.log(value)
+            if (value==false)return res.status(404).json("the company no it not correct ")
+
+
+
+
                const transporter = nodemailer.createTransport({
             service: "gmail",
             port: 587,
@@ -683,13 +703,13 @@ router.post("/signup/dra", async (req, res) => {
 
         const isAdmin = await User.findById(userId)
         if (!isAdmin) return res.status(404).json("user not found")
-        if (isAdmin.role!=="Admin") return res.status(404).send("Only Admin Authoriz to creat this account !!")
+      //  if (isAdmin.role!=="Admin") return res.status(404).send("Only Admin Authoriz to creat this account !!")
 
         //content
         const {firstName, username, email, password , role} = req.body
 
         //validate
-       const result =signupJoi(req.body)
+       const result =signupDRAJoi(req.body)
 
         if (result.error) return res.status(400).json(result.error.details[0].message)
         //check email 
@@ -701,6 +721,7 @@ router.post("/signup/dra", async (req, res) => {
         const hash = await bcrypt.hash(password, salt)
         const userBody = new User({
             firstName,
+    
             username,
             email,
             password: hash,

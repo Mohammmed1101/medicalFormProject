@@ -21,9 +21,8 @@ import CompanyProfile from './container/profile/CompanyProfile';
 import Forgetpassword from './container/login/Forgetpassword';
 import ResetPassword from "./container/login/ResetPassword"
 import EmailVerified from "./container/register/EmailVerified"
-//import Chat from "./container/Chat/Components/Chat/Chat"
+import Chat from "./container/Chat/Components/Chat/Chat"
 function App() {
-
 
   const [errorLogin, setErrorLogin] = useState(null)
   const [profile, setProfile] = useState(null)
@@ -257,9 +256,6 @@ const resetPassword = async (e, token) => {
     addComment,
     addPost,
     addRate,
-  
-    deletePost,
-    deleteDrugs,
     errorForgetPassword, 
     forgetPassword,
      successForgetPassword ,
@@ -293,9 +289,9 @@ useEffect (()=>{
         <Route path="/posts" element={<Posts />} />
         <Route path="/drugs/:id" element={<DrugPage />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/postssss" element={<NewPosts />} />
-        {/* <Route path="/chat" element={<Chat />} /> */}
-        <Route path="/Companyprofile" element={<CompanyProfile/>} />
+        <Route path="/chat" element={<Chat />} />
+       
+        <Route path="/orgprofile" element={<CompanyProfile/>} />
         <Route path="/Forgetpassword" element={<Forgetpassword/>} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/email_verified/:token" element={<EmailVerified />} />
