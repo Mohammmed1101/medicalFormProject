@@ -385,7 +385,7 @@ router.post("/:drugId/rate", async (req, res) => {
             userId: req.userId
         }
         // console.log(drug.rating);
-        // rating المشكلة عدم ايجاد 
+      
         const ratingFound = Drug.rating.find(ratingObject => ratingObject.userId == req.userId) 
         if (ratingFound) return res.status(400).send("user already rated this drug")
         await drug.findByIdAndUpdate(req.params.drugId, { $push: { rating: newrate } }, { new: true })
@@ -394,12 +394,8 @@ router.post("/:drugId/rate", async (req, res) => {
         // res.json(newrate)
         
         let ratingSum = 0
-        Drug.rating.forEach(reationgObject => reatingsum += reationgObject.rate)
-        
+        Drug.rating.forEach(reationgObject => ratingSum = ratingSum + reationgObject.rate)
         const ratingAverage = ratingSum / Drug.rating.length
-        console.log(typeof ratingAverage);
-        console.log(typeof ratingSum);
-        console.log(typeof  Drug.rating);
         await drug.findByIdAndUpdate(req.params.drugId, { $set: { ratingAverage } })
         res.send("rating added")
     } catch (error) {
