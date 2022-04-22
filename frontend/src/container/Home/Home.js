@@ -6,6 +6,7 @@ import "./2Home.css"
 import Navbar from './header/Navbar';
 import HomeDrug from './HomeDrug';
 import HomePost from '../posts/HomePost';
+import Fotter from '../Fotter/Fotter';
 export default function Home() {
     return (
         <div className='h-c'>
@@ -21,8 +22,12 @@ export default function Home() {
                  <br/>     <br/>  
                  <h1 className='lastDrugs'>احدث اخبار ومنشورات الصحه </h1>
                 <HomePost/> 
+              
                 <br/>     <br/>     <br/>     <br/>     <br/>     <br/>     <br/>   <br/>   <br/>     <br/>     <br/>     <br/>     <br/>     <br/>     <br/>   <br/>  
+                <Fotter/>
         </div>
+
+      
     );
 }
 

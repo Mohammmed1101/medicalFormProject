@@ -7,23 +7,25 @@ const ratingSchema = new mongoose.Schema({
       type: mongoose.Types.ObjectId,
       ref: "user",
     },
-    rating: Number,
+    rate:{type: Number,
+      default: 0},
   });
-const drugSchema = new mongoose.Schema({
+
+const drugSchema = mongoose.Schema({
     Name: String,
     RegisterNo:Number,
     description: String,
     termOfUse: String,
     image: String,
+    rating: [ratingSchema],
+    ratingAverage :{
+     type: Number,
+      default: 0
+    },
     comments: [{
         type: mongoose.Types.ObjectId,
         ref: "comment"
-    }],
-    rating: [ratingSchema],
-    ratingAverage :{
-      type : Number , 
-      default : 0, 
-    }
+    }]
 })
 
 const drugJoi = Joi.object({
@@ -40,13 +42,15 @@ const editJoi = Joi.object({
     termOfUse: Joi.string().max(1000),
     image: Joi.string().uri().allow("")
 })
-const rateJoi =(input) => Joi.object({
+const rateJoi =  Joi.object({
       rate: Joi.number().min(1).max(5).required(),
-    }).validate(input)
+    })
 
 
 const drug = mongoose.model("drug", drugSchema)
-module.exports.rateJoi = rateJoi
+
+
 module.exports.drug = drug
+module.exports.rateJoi = rateJoi
 module.exports.drugJoi = drugJoi
 module.exports.editJoi = editJoi

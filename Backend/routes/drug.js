@@ -2,7 +2,7 @@ const express = require("express")
 const jwt = require("jsonwebtoken")
 const mongoose= require('mongoose');
 const { Comment, commentJoi } = require("../model/comment")
-const { drug, drugJoi, editJoi, rateJoi } = require("../model/drugs")
+const  { drug , drugJoi  , editJoi , rateJoi} = require("../model/drugs")
 const { User } = require("../model/user")
 const router = express.Router()
 
@@ -25,7 +25,7 @@ router.post("/",async (req, res) => {
 
      const isAdmin = await User.findById(userId)
         if (!isAdmin) return res.status(404).json("user not found")
-        if (isAdmin.role!=="Admin" & isAdmin.role!=="DRA") return res.status(404).send("you are not allowed to add Drugs!!")
+        if (isAdmin.role!=="Admin" & isAdmin.role!=="DRA") return res.status(400).send("you are not allowed to add Drugs!!")
 
         const result = drugJoi.validate(req.body)
         if (result.error) return res.status(404).json(result.error.details[0].message)
@@ -356,48 +356,53 @@ router.post("/:drugId/rate", async (req, res) => {
         if (!token) return res.status(401).json("token is missing")
 
         const decryptToken = jwt.verify(token, process.env.JWT_SECRET_KEY)
-        const UserId = decryptToken.id
-        req.UserId = UserId
+        const userId = decryptToken.id
+        req.userId = userId
 
-        const user = await User.findById(UserId).select("-password")
+        const user = await User.findById(userId).select("-password")
         if (!user) return res.status(404).json("User not found")
 
-        const isConsumer = await User.findById(UserId)
+        const isConsumer = await User.findById(userId)
         if (!isConsumer) return res.status(404).json("user not found")
-        //  if (isConsumer.role!=="Consumer"& isConsumer.role!=="Specialist") return res.status(404).send("you are not allowed to rate ")
+         if (isConsumer.role!=="Consumer" && isConsumer.role !== "Specialist") return res.status(400).send("you are not allowed to rate ")
 
         //check id
         const id = req.params.drugId
-        if (!mongoose.Types.ObjectId.isValid(id))
-            return res.status(400).send("The path is not valid object id")
-
-        let Drug = await drug.findById(req.params._id)
-        if (Drug) return res.status(404).json("drug not found")
-
+        if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).send("The path is not valid object id")
         //validate
-        const result = rateJoi(req.body)
+        const result = rateJoi.validate(req.body)
         if (result.error) return res.status(404).json(result.error.details[0].message)
+
+
+        let Drug = await drug.findById(req.params.drugId) 
+        if (!Drug) return res.status(404).json("drug not found")
 
         //requset body rate
         const { rate } = req.body
-        //create rate 
 
+        //create rate 
         const newrate = {
             rate,
             userId: req.userId
         }
-        // const ratingFound = drug.rating.find( ratingObject => ratingObject.userId == req.userId)
-        // if (ratingFound) return res.status(400).send("user already rated this drug")
-        await drug.findByIdAndUpdate(req.params.drugId, { $push: { rating: newrate._id } }, { new: true })
+        // console.log(drug.rating);
+        // rating المشكلة عدم ايجاد 
+        const ratingFound = Drug.rating.find(ratingObject => ratingObject.userId == req.userId) 
+        if (ratingFound) return res.status(400).send("user already rated this drug")
+        await drug.findByIdAndUpdate(req.params.drugId, { $push: { rating: newrate } }, { new: true })
 
        //  await newrate.save()
-        res.json(newrate)
-        let reatingsum = 0
-             Drug.rating.forEach(reationgObject =>
-             reatingsum += reationgObject.rating)
-        const ratingAverage = reatingsum / drug.rateing.length
+        // res.json(newrate)
+        
+        let ratingSum = 0
+        Drug.rating.forEach(reationgObject => reatingsum += reationgObject.rate)
+        
+        const ratingAverage = ratingSum / Drug.rating.length
+        console.log(typeof ratingAverage);
+        console.log(typeof ratingSum);
+        console.log(typeof  Drug.rating);
         await drug.findByIdAndUpdate(req.params.drugId, { $set: { ratingAverage } })
-
+        res.send("rating added")
     } catch (error) {
         console.log(error.message)
         res.status(500).json("The problem in server")
