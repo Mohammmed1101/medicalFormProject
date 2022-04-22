@@ -18,7 +18,6 @@ function Comment() {
                     </div>
                     <input required type="checkbox"/ >
                      اتعهد ان جميع ما كتبته اعلاه صحيح واتحمل مسوليه ذلك
-
                     <div className="form-group"> <button type="Submit" id="post" className="btn">أرسال التعليق</button> </div>
                 </form>
         </div>

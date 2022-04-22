@@ -5,7 +5,8 @@ const router = express.Router()
 const bcrypt = require("bcrypt")
 const XLSX = require("xlsx")
 const wb = XLSX.readFile("./companyNo.xlsx")
-const { User, signupJoi, loginJoi, profileJoi, resetPassJoi, CompanyJoi,editCompanyJoi } = require("../model/user")
+const { User, signupJoi, loginJoi, profileJoi,signupDRAJoi, resetPassJoi, CompanyJoi,editCompanyJoi, } = require("../model/user")
+const {SpecialistLicenses,SpecialistJoi}=require("../model/SpecialistLicense")
 const jwt = require("jsonwebtoken")
 require('dotenv').config()
 //user signup
@@ -470,6 +471,26 @@ router.post("/signup/company", async (req, res) => {
             password: hash,
             role:"Company" ,
         })
+
+        const ws =wb.Sheets[wb.SheetNames[0]]
+        let value =true
+       // console.log(ws[`A${5}`].v==company_No)
+       loop:for (let i =2;i <1000;i++){
+               const row =ws[`A${i}`].v
+            if (row==userBody.company_No ){
+              console.log("register comblited")
+              value =true
+              break 
+              } else 
+             value =false
+          continue
+            }
+            console.log(value)
+            if (value==false)return res.status(404).json("the company no it not correct ")
+
+
+
+
                const transporter = nodemailer.createTransport({
             service: "gmail",
             port: 587,
@@ -682,13 +703,13 @@ router.post("/signup/dra", async (req, res) => {
 
         const isAdmin = await User.findById(userId)
         if (!isAdmin) return res.status(404).json("user not found")
-        if (isAdmin.role!=="Admin") return res.status(404).send("Only Admin Authoriz to creat this account !!")
+      //  if (isAdmin.role!=="Admin") return res.status(404).send("Only Admin Authoriz to creat this account !!")
 
         //content
         const {firstName, username, email, password , role} = req.body
 
         //validate
-       const result =signupJoi(req.body)
+       const result =signupDRAJoi(req.body)
 
         if (result.error) return res.status(400).json(result.error.details[0].message)
         //check email 
@@ -700,6 +721,7 @@ router.post("/signup/dra", async (req, res) => {
         const hash = await bcrypt.hash(password, salt)
         const userBody = new User({
             firstName,
+    
             username,
             email,
             password: hash,
@@ -916,8 +938,19 @@ router.get("/profile", async (req, res) => {
         const userId = decryptToken.id
         req.userId = userId
 
+<<<<<<< HEAD
+        const user = await User.findById(req.userId).select("-password").populate({ path:"comments" ,populate:{path:"comment"}})
+        .populate({ 
+            path: 'post',
+            populate: {
+              path: 'owner',
+              model: 'Post'
+            } 
+         })
+=======
         const user = await User.findById(req.userId).select("-password").populate("comments")
 
+>>>>>>> 48c479f118a1eb1117d7601634db3bfaecdc2e3c
         if (!user) return res.status(404).json("user not found")
         // console.log(user)
         res.json(user)
@@ -1248,13 +1281,44 @@ router.delete("/:id", async (req, res) => {
     }
   });
 ///
-router.get("/search/:key", async (req, res) => {
- 
-    let data = await User.find({
-        "$or":[
-            {Name:{$regex:req.params.key}}
-        ]
-    })
-    res.send(data)
+router.post("/upgrade", async (req, res) => {
+    try {
+        //check token
+        const token = req.header("Authorization")
+        if (!token) return res.status(401).json("token is missing")
+
+        const decryptToken = jwt.verify(token, process.env.JWT_SECRET_KEY)
+        const UserId = decryptToken.id
+        req.UserId = UserId
+
+        const user = await User.findById(UserId).select("-password")
+        if (!user) return res.status(404).json("User not found")
+
+        const isConsumer = await User.findById(UserId)
+        if (!isConsumer ) return res.status(404).json("user not found")
+      //  if (isConsumer.role!=="Consumer") return res.status(404).send("you are not allowed to add comments ")
+        
+        //validate
+        const result = SpecialistJoi(req.body)
+        if (result.error) return res.status(404).json(result.error.details[0].message)
+
+        //requset body comment
+        const {Licensenumber} = req.body
+        //create comment 
+
+        const newSpecialistLicense = new SpecialistLicenses({
+            Licensenumber,
+              owner: req.UserId,
+             })
+        
+
+        await User.findByIdAndUpdate(req.UserId, { $push: {   SpecialistLicense: newSpecialistLicense._id } })
+        await newSpecialistLicense.save()
+        res.json(newSpecialistLicense)
+
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).json("The problem in server")
+    }
 })
 module.exports = router;

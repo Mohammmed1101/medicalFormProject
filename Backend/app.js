@@ -25,22 +25,7 @@ app.use("/MyMediForm/conversation", conversation)
 //////////////////////////////
 
 
-const XLSX = require("xlsx")
-const wb = XLSX.readFile("./companyNo.xlsx")
-const ws =wb.Sheets[wb.SheetNames[0]]
 
-
-company_No='60100049';
-console.log(ws[`A${5}`].v==company_No)
-for (let i =2;i <1000;i++){
-       const row =ws[`A${i}`].v
-    if (row==company_No ){
-      console.log("register comblited")
-      break
-      }else
-    console.log("the company number is not correct !!")
-     
-    }
 
    
 ///////////////////////////////////////

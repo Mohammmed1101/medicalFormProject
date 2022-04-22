@@ -20,9 +20,9 @@ import NewPosts from './container/posts/NewPost';
 import CompanyProfile from './container/profile/CompanyProfile';
 import Forgetpassword from './container/login/Forgetpassword';
 import ResetPassword from "./container/login/ResetPassword"
-//import Chat from "./container/Chat/Components/Chat/Chat"
+import EmailVerified from "./container/register/EmailVerified"
+import Chat from "./container/Chat/Components/Chat/Chat"
 function App() {
-
 
   const [errorLogin, setErrorLogin] = useState(null)
   const [profile, setProfile] = useState(null)
@@ -179,7 +179,7 @@ const resetPassword = async (e, token) => {
           Authorization: localStorage.tokenSocial,
         },
       })
-      toast.success("Comment added")
+      toast.success()
     } catch (error) {
       if (error.response) toast.error(error.response.data)
       else console.log(error)
@@ -246,20 +246,7 @@ const resetPassword = async (e, token) => {
   }
   
   /////////////////////
-  const postLike = async (drugId ,commentId) => {
-    try {
-      const response = await axios.get(`/MyMediForm/drug/${drugId}/${commentId}/likes`, {
-        headers: {
-          Authorization: localStorage.tokenSocial,
-        },
-      })
-      
-      alert.success(response.data)
-    } catch (error) {
-      if (error.response) alert(error.response.data)
-      else console.log(error)
-    }
-  }
+
   /////////////////STORE///////////////
   const store = {
     login,
@@ -269,9 +256,6 @@ const resetPassword = async (e, token) => {
     addComment,
     addPost,
     addRate,
-    postLike,
-    deletePost,
-    deleteDrugs,
     errorForgetPassword, 
     forgetPassword,
      successForgetPassword ,
@@ -305,11 +289,12 @@ useEffect (()=>{
         <Route path="/posts" element={<Posts />} />
         <Route path="/drugs/:id" element={<DrugPage />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/postssss" element={<NewPosts />} />
-        {/* <Route path="/chat" element={<Chat />} /> */}
-        <Route path="/Companyprofile" element={<CompanyProfile/>} />
+        <Route path="/chat" element={<Chat />} />
+       
+        <Route path="/orgprofile" element={<CompanyProfile/>} />
         <Route path="/Forgetpassword" element={<Forgetpassword/>} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
+        <Route path="/email_verified/:token" element={<EmailVerified />} />
       </Routes>
     </PostsContext.Provider >
 

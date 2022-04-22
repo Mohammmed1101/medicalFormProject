@@ -48,7 +48,7 @@ router.post("/",async (req, res) => {
 //view drugs
 router.get("/drugs", async (req, res) => {
     try {
-        const drugs = await drug.find().sort("-Date")
+        const drugs = await drug.find().sort("-Date").populate({ path:"comments" ,populate:{path:"comment"}})
         res.json(drugs)
     } catch (error) {
         console.log(error.message)
@@ -191,7 +191,6 @@ router.post("/:drugId/comments", async (req, res) => {
              comment,
               owner: req.UserId,
               Drugid: req.params.drugId,
-            
              })
         
         await drug.findByIdAndUpdate(req.params.drugId, { $push: { comments: newComment._id } })

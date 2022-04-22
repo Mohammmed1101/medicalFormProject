@@ -16,12 +16,11 @@ router.post("/", async (req, res) => {
         if (!token) return res.status(401).json("token is missing")
         
         const decryptToken = jwt.verify(token, process.env.JWT_SECRET_KEY)
-        const userId = decryptToken.id
-     
-        const user = await User.findById(userId).select("-password")
-        if (!user) return res.status(404).json("user not found")
-        req.userId = userId
-        const isCompany = await User.findById(userId)
+          
+        const UserId = decryptToken.id
+        req.UserId = UserId
+        
+        const isCompany = await User.findById(UserId)
         if (!isCompany) return res.status(404).json("user not found")
      //  if (isCompany.role!=="Company"& isCompany.role!=="DRA") return res.status(404).send("you are not allowed to add post!!")
         
@@ -32,10 +31,11 @@ router.post("/", async (req, res) => {
             title,
             description,
             image,
-            owner:req.userId,
+            owner: req.UserId,
         })
             
-        await User.findByIdAndUpdate(req.userId, { $push: { posts: post._id } })
+        await User.findByIdAndUpdate(req.UserId, { $push: { post: post._id } })
+      
         await post.save()
         res.json(post)
 
