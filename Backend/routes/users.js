@@ -938,7 +938,6 @@ router.get("/profile", async (req, res) => {
         const userId = decryptToken.id
         req.userId = userId
 
-<<<<<<< HEAD
         const user = await User.findById(req.userId).select("-password").populate({ path:"comments" ,populate:{path:"comment"}})
         .populate({ 
             path: 'post',
@@ -947,10 +946,6 @@ router.get("/profile", async (req, res) => {
               model: 'Post'
             } 
          })
-=======
-        const user = await User.findById(req.userId).select("-password").populate("comments")
-
->>>>>>> 48c479f118a1eb1117d7601634db3bfaecdc2e3c
         if (!user) return res.status(404).json("user not found")
         // console.log(user)
         res.json(user)
