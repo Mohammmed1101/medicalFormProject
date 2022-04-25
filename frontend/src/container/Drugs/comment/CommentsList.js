@@ -68,7 +68,7 @@ export default  function CommentsList() {
               </div>
         
               <p> {Comment.comment}</p>
-           {   console.log("Abeer"+Comment._id)}
+
               <ul class="list-inline d-sm-flex my-0">
                 <li class="list-inline-item g-mr-20">
 

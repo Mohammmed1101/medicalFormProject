@@ -191,7 +191,7 @@ const resetPassword = async (e, token) => {
     try {
       const form = e.target
       const rateBody = {
-        rate: form.elements.rate.value,
+        rate:form.elements.rate.value,
       }
       form.reset()
       await axios.post(`/MyMediForm/drug/${Drugid}/rate`, rateBody, {
@@ -290,7 +290,6 @@ useEffect (()=>{
         <Route path="/drugs/:id" element={<DrugPage />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/chat" element={<Chat />} />
-       
         <Route path="/orgprofile" element={<CompanyProfile/>} />
         <Route path="/Forgetpassword" element={<Forgetpassword/>} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />

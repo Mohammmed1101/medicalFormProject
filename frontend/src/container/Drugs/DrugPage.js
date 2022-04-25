@@ -33,17 +33,15 @@ function DrugPage() {
   }
     useEffect(() => {
       const menu1 = new BootstrapMenu('#menu-posts', {
-          menuEvent: 'click', // default value, can be omitted
-          // menuSource: 'element',
-          menuPosition: 'belowLeft', // default value, can be omitted
+          menuEvent: 'click', 
+          
+          menuPosition: 'belowLeft', 
           actions: [{
               name: 'Edit',
               onClick: () => setEditShow(true)
           }, {
               name: 'Delete',
               onClick: () => setDeleteShow(true)
-
-
           }]
       })
       getDrug()
@@ -58,6 +56,8 @@ function DrugPage() {
             <div className="col-md-4 mb-3">
               <div className="card">
                 <div className="card-body">
+                  <DeleteDrug></DeleteDrug>
+                <DeleteDrug show={deleteShow} setShow={setDeleteShow} drugId={id} />
                   <div className="d-flex flex-column align-items-center text-center">
                     <img src={Drug.image}alt="drug" className="rounded-circle" width="150"/>
                     <div className="mt-3">
@@ -66,7 +66,7 @@ function DrugPage() {
                       <p className="text-muted font-size-sm">هيئه الدواء والغذاء في السعوديه</p>
                       <p>التقييمات</p>
                       <Rate/>
-                      <DeleteDrug show={deleteShow} setShow={setDeleteShow} drugId={id} />
+                 
                     </div>
                   </div>
                 </div>
