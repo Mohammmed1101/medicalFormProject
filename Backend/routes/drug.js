@@ -388,7 +388,7 @@ router.post("/:drugId/rate", async (req, res) => {
       
         const ratingFound = Drug.rating.find(ratingObject => ratingObject.userId == req.userId) 
         if (ratingFound) return res.status(400).send("user already rated this drug")
-        await drug.findByIdAndUpdate(req.params.drugId, { $push: { rating: newrate } }, { new: true })
+        Dryg = await drug.findByIdAndUpdate(req.params.drugId, { $push: { rating: newrate } }, { new: true })
 
        //  await newrate.save()
         // res.json(newrate)
