@@ -197,9 +197,9 @@ const resetPassword = async (e, token) => {
         },
       })
       
-      toast.success("Your rate is added")
+      // toast.success("Your rate is added")
     } catch (error) {
-      if (error.response) toast.error(error.response.data)
+      if (error.response) console.log(error.response.data);//toast.error(error.response.data)
       else console.log(error)
     }
   }
