@@ -348,6 +348,7 @@ router.get("/:drugId/:commentId/dislikes", async (req, res) => {
     }
 })
 //rating 
+
 router.post("/:drugId/rate", async (req, res) => {
     try {
         //check token
@@ -365,7 +366,6 @@ router.post("/:drugId/rate", async (req, res) => {
         if (!isConsumer) return res.status(404).json("user not found")
          if (isConsumer.role!=="Consumer" && isConsumer.role !== "Specialist") return res.status(400).send("you are not allowed to rate ")
 
-        //check id
         const id = req.params.drugId
         if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).send("The path is not valid object id")
         //validate
@@ -387,8 +387,8 @@ router.post("/:drugId/rate", async (req, res) => {
         // console.log(drug.rating);
       
         const ratingFound = Drug.rating.find(ratingObject => ratingObject.userId == req.userId) 
-        if (ratingFound) return res.status(400).send("user already rated this drug")
-        await drug.findByIdAndUpdate(req.params.drugId, { $push: { rating: newrate } }, { new: true })
+    //  if (ratingFound) return res.status(400).send("user already rated this drug")
+      await drug.findByIdAndUpdate(req.params.drugId, { $push: { rating: newrate } }, { new: true })
 
        //  await newrate.save()
         // res.json(newrate)
@@ -396,7 +396,8 @@ router.post("/:drugId/rate", async (req, res) => {
         let ratingSum = 0
         Drug.rating.forEach(reationgObject => ratingSum = ratingSum + reationgObject.rate)
         const ratingAverage = ratingSum / Drug.rating.length
-        await drug.findByIdAndUpdate(req.params.drugId, { $set: { ratingAverage } })
+         await drug.findByIdAndUpdate(req.params.drugId, { $set: { ratingAverage } })
+       
         res.send("rating added")
     } catch (error) {
         console.log(error.message)

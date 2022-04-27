@@ -1,31 +1,34 @@
 import React from 'react';
-import "./rate.css"
-import { useContext } from "react";
-import PostsContext from '../../utils/PostsContext';
-import { useParams } from "react-router-dom";
+import { useState } from "react"
+import { Button, OverlayTrigger, Tooltip } from "react-bootstrap"
+import { AiFillStar } from "react-icons/ai"
+import OneStar from "./OneStar"
 
-export default function App() {
-	const { addRate, Drug } = useContext(PostsContext)
-    const {id} = useParams();
+export default function App(props) {
+    const [show, setShow] = useState(false)
+    const [fill, setFill] = useState(0)
+    const { Drugid } = props
+   
 return (
-	<div>
-
-  <div class="rate"  onChange={e => addRate(e, id)}>
-    <input type="radio" id="star5" name="rate" value="5" />
-    <label for="star5" title="text">5 stars</label>
-
-    <input type="radio" id="star4" name="rate" value="4" />
-    <label for="star4" title="text">4 stars</label>
-
-    <input type="radio" id="star3" name="rate" value="3" />
-    <label for="star3" title="text">3 stars</label>
-
-    <input type="radio" id="star2" name="rate" value="2" />
-    <label for="star2" title="text">2 stars</label>
-    
-    <input type="radio" id="star1" name="rate" value="1" />
-    <label for="star1" title="text">1 star</label>
-  </div>
-	</div>
-);
+ 
+    <OverlayTrigger
+      placement="bottom"
+      overlay={
+        <Tooltip>
+          <div style={{ padding: 15 }} onMouseLeave={() => setFill(0)}>
+            <OneStar fill={fill} setFill={setFill} starNumber={1} Drugid={Drugid} setShow={setShow} />
+            <OneStar fill={fill} setFill={setFill} starNumber={2} Drugid={Drugid} setShow={setShow} />
+            <OneStar fill={fill} setFill={setFill} starNumber={3} Drugid={Drugid} setShow={setShow} />
+            <OneStar fill={fill} setFill={setFill} starNumber={4} Drugid={Drugid} setShow={setShow} />
+            <OneStar fill={fill} setFill={setFill} starNumber={5} Drugid={Drugid} setShow={setShow} />
+          </div>
+        </Tooltip>
+      }
+      show={show}
+    >
+      <Button variant="dark" onClick={() => setShow(!show)}>
+        <AiFillStar />
+      </Button>
+    </OverlayTrigger>
+  )
 }

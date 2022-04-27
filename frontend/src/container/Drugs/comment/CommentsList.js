@@ -2,18 +2,14 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import "./commentlist.css"
-import { useContext } from "react";
-import PostsContext from '../../../utils/PostsContext';
 import axios from "axios";
 export default  function CommentsList() {
    
     const {id} = useParams();
- 
-
         const url = `/MyMediForm/drug/${id}/comments`;
         const [Comment, setComment] = useState([]);
-        useEffect(() => {
-            const fetchData = async () => {
+
+     const GetComment= async () => {
                 try {
                     const response = await fetch(url);
                     const json = await response.json();
@@ -23,33 +19,28 @@ export default  function CommentsList() {
                     console.log("error", error);
                 }
             };
-              fetchData();
-         
-        }, []);
+            useEffect (()=>{
+              GetComment()
+             
+            }
+            )
+      
 
-        //       console.log(Comment._id)
+        const postLike = async (drugId ) => {
+               
+           const Commentid=Comment._id
+          try {
+            const response = await axios.get(`/MyMediForm/drug/${drugId}/${Commentid}/likes`, {
+              headers: {
+                Authorization: localStorage.tokenSocial,
+              },
+            })
 
-        // const postLike = async (drugId, ) => {
-        //   try {
-        //     const response = await axios.get(`/MyMediForm/drug/${drugId}/${Comment._id}/likes`, {
-        //       headers: {
-        //         Authorization: localStorage.tokenSocial,
-        //       },
-        //     })
-          
-        //   } catch (error) {
-        //     if (error.response) alert(error.response.data)
-        //     else console.log(error)
-        //   }
-        // }
-
-
-
-
-
-
-
-
+          } catch (error) {
+            if (error.response) alert(error.response.data)
+            else console.log(error)
+          }
+        }
         const listComment = [...Comment].sort((a, b) => b.likes.length - a.likes.length)
         .map((Comment) =>
             <div key={Comment.id}>
@@ -67,23 +58,23 @@ export default  function CommentsList() {
                 <span class="g-color-gray-dark-v4 g-font-size-12">{Comment.Date}</span>
               </div>
         
+       
               <p> {Comment.comment}</p>
 
               <ul class="list-inline d-sm-flex my-0">
+
                 <li class="list-inline-item g-mr-20">
-
-
-
-                  <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"  href="#!">
+                    <button onClick={postLike}  >  
                     <i class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
                    {Comment.likes.length}
-                  </a>
-                </li>
+                    </button> 
+                 </li>
+
                 <li class="list-inline-item g-mr-20">
-                  <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
-                    <i class="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"></i>
+                   <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                   <i class="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"></i>
                     {Comment.dislikes.length}
-                  </a>
+                   </a>
                 </li>
              
               </ul>

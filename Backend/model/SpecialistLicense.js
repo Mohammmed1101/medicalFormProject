@@ -1,7 +1,7 @@
 const mongoose= require('mongoose');
 const Joi = require("joi");
 const SpecialistLicenseSchema = new mongoose.Schema({
-    Licensenumber: String,
+    Licensenumber: Number,
     owner: {
         type: mongoose.Types.ObjectId,
         ref: "user"
@@ -9,13 +9,11 @@ const SpecialistLicenseSchema = new mongoose.Schema({
 })
 
 const  SpecialistJoi= (input) => Joi.object({
-    Licensenumber:Joi.string().pattern(/^[0-9]+$/).required(),
+    Licensenumber:Joi.number()
 }).validate(input)
 
-const SpecialistLicense  = mongoose.model("SpecialistLicense ", SpecialistLicenseSchema )
-
+const SpecialistLicense  = mongoose.model("specialistLicense", SpecialistLicenseSchema )
 module.exports.SpecialistLicense =SpecialistLicense
-module.exports= SpecialistLicenseSchema
 module.exports.SpecialistJoi  = SpecialistJoi
 
 

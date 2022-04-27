@@ -179,32 +179,33 @@ const resetPassword = async (e, token) => {
           Authorization: localStorage.tokenSocial,
         },
       })
-      toast.success()
+
     } catch (error) {
       if (error.response) toast.error(error.response.data)
       else console.log(error)
     }
   }
   ///////////
-  const addRate = async (e, Drugid) => {
-    e.preventDefault()
+  const addRate = async (Drugid, rate) => {
     try {
-      const form = e.target
-      const rateBody = {
-        rate:form.elements.rate.value,
+      const ratingBody = {
+        rate,
       }
-      form.reset()
-      await axios.post(`/MyMediForm/drug/${Drugid}/rate`, rateBody, {
+      await axios.post(`/MyMediForm/drug/${Drugid}/rate`, ratingBody, {
         headers: {
-          Authorization: localStorage.tokenSocial,
+          Authorization:localStorage.tokenSocial,
         },
       })
-      toast.success(" rate added")
+      
+      toast.success("Your rate is added")
     } catch (error) {
       if (error.response) toast.error(error.response.data)
       else console.log(error)
     }
   }
+  
+   
+ 
   //////////
   const addPost = async e => {
     e.preventDefault()

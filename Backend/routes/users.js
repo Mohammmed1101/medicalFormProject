@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt")
 const XLSX = require("xlsx")
 const wb = XLSX.readFile("./companyNo.xlsx")
 const { User, signupJoi, loginJoi, profileJoi,signupDRAJoi, resetPassJoi, CompanyJoi,editCompanyJoi, } = require("../model/user")
-const {SpecialistLicenses,SpecialistJoi}=require("../model/SpecialistLicense")
+const {SpecialistLicense,SpecialistJoi}=require("../model/SpecialistLicense")
 const jwt = require("jsonwebtoken")
 require('dotenv').config()
 //user signup
@@ -1272,7 +1272,7 @@ router.delete("/:id", async (req, res) => {
         return res.status(500).json(err);
       }
     } else {
-      return res.status(403).json("You can delete only your account!");
+      return res.status(403).json("You cant delete only your account!");
     }
   });
 ///
@@ -1291,7 +1291,7 @@ router.post("/upgrade", async (req, res) => {
 
         const isConsumer = await User.findById(UserId)
         if (!isConsumer ) return res.status(404).json("user not found")
-      //  if (isConsumer.role!=="Consumer") return res.status(404).send("you are not allowed to add comments ")
+    //   if (isConsumer.role!=="Consumer") return res.status(404).send("you are not allowed to upGrade your acc ")
         
         //validate
         const result = SpecialistJoi(req.body)
@@ -1300,13 +1300,11 @@ router.post("/upgrade", async (req, res) => {
         //requset body comment
         const {Licensenumber} = req.body
         //create comment 
-
-        const newSpecialistLicense = new SpecialistLicenses({
+        const newSpecialistLicense = new SpecialistLicense({
             Licensenumber,
               owner: req.UserId,
              })
         
-
         await User.findByIdAndUpdate(req.UserId, { $push: {   SpecialistLicense: newSpecialistLicense._id } })
         await newSpecialistLicense.save()
         res.json(newSpecialistLicense)
@@ -1316,4 +1314,36 @@ router.post("/upgrade", async (req, res) => {
         res.status(500).json("The problem in server")
     }
 })
+
+router.put("/AcceptLicense/:SpecialistLicenseid", async (req, res) => {//Likes
+        try {
+            //check token
+            const token = req.header("Authorization")
+            if (!token) return res.status(401).json("token is missing")
+    
+            const decryptToken = jwt.verify(token, process.env.JWT_SECRET_KEY)
+            const userId = decryptToken.id
+    
+            const user = await User.findById(userId).select("-password")
+            if (!user) return res.status(404).json("user not found")
+            req.userId = userId
+            //check(validate) id
+            const id = req.params.SpecialistLicenseid
+            if (!mongoose.Types.ObjectId.isValid(id))
+                return res.status(400).send("The path is not valid object id")
+    
+            let specialistLicense = await SpecialistLicense.findById(req.params.SpecialistLicenseid)
+            if (!specialistLicense) return res.status(404).json("post not found")
+    
+                await User.findByIdAndUpdate(req.userId, { $set:{role:"Specialist" } })
+                res.json("Acc upgrade")
+            
+        } catch (error) {
+            console.log(error.message)
+            res.status(500).json("The problem in server")
+        }
+    })
+
+
+
 module.exports = router;

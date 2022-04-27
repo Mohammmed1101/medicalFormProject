@@ -134,10 +134,13 @@ function DrugPage() {
                   <div className="card " >
                     <div className="card-body">
                     <div className=" align-items-center text-center">
+                    
                       <Comment/>
+                      
                       </div> </div>
                   </div>
                 </div>
+               
     </div>
 
         </div>
