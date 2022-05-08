@@ -5,7 +5,7 @@ import "./commentlist.css"
 import axios from "axios";
 export default  function CommentsList() {
    
-    const {id} = useParams();
+  const {id} = useParams();
         const url = `/MyMediForm/drug/${id}/comments`;
         const [Comment, setComment] = useState([]);
 
@@ -25,22 +25,42 @@ export default  function CommentsList() {
             }
             )
       
-
-        const postLike = async (drugId ) => {
-               
-           const Commentid=Comment._id
-          try {
-            const response = await axios.get(`/MyMediForm/drug/${drugId}/${Commentid}/likes`, {
+         
+       function postLike (Commentid ) {
+      
+           fetch(`/MyMediForm/drug/${id}/${Commentid}/likes`, {
               headers: {
                 Authorization: localStorage.tokenSocial,
               },
-            })
-
-          } catch (error) {
-            if (error.response) alert(error.response.data)
-            else console.log(error)
+            })          
           }
-        }
+
+
+          function postdisLike (Commentid ) {
+      
+            fetch(`/MyMediForm/drug/${id}/${Commentid}/dislikes`, {
+               headers: {
+                 Authorization: localStorage.tokenSocial,
+               },
+             })          
+           }
+
+
+           // function to delet 
+function deletedrug(commentId)
+{
+
+    fetch(`/MyMediForm/drug/${id}/comments/${commentId}`,{
+        method:"DELETE"
+    }).then((result)=>{
+        result.json().then((resp)=>{
+            console.log(resp)
+        })
+    })
+}
+
+
+
         const listComment = [...Comment].sort((a, b) => b.likes.length - a.likes.length)
         .map((Comment) =>
             <div key={Comment.id}>
@@ -64,19 +84,19 @@ export default  function CommentsList() {
               <ul class="list-inline d-sm-flex my-0">
 
                 <li class="list-inline-item g-mr-20">
-                    <button onClick={postLike}  >  
-                    <i class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
+                  
+                    <i class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3" onClick={()=>postLike(Comment._id)} ></i>
                    {Comment.likes.length}
-                    </button> 
+                  
                  </li>
 
                 <li class="list-inline-item g-mr-20">
-                   <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
-                   <i class="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"></i>
+                   <i class="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"onClick={()=>postdisLike(Comment._id)} ></i>
                     {Comment.dislikes.length}
-                   </a>
+                 
                 </li>
-             
+                <button onClick={()=>deletedrug(Comment._id)} style={{"float":"right"  ,"border":"0px"}} > <i class="bi bi-trash3-fill"></i></button>
+
               </ul>
             </div>
         </div>

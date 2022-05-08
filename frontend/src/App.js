@@ -15,8 +15,6 @@ import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import axios from "axios";
 import PostsContext from "./utils/PostsContext"
-import { useParams } from "react-router-dom";
-import NewPosts from './container/posts/NewPost';
 import CompanyProfile from './container/profile/CompanyProfile';
 import Forgetpassword from './container/login/Forgetpassword';
 import ResetPassword from "./container/login/ResetPassword"
@@ -27,6 +25,7 @@ function App() {
   const [errorLogin, setErrorLogin] = useState(null)
   const [profile, setProfile] = useState(null)
   const [Drug, setDrug] = useState([]);
+  const [Comment, setComment] = useState([]);
   const [errorResetPassword, setErrorResetPassword] = useState(null)
   const [errorForgetPassword, setErrorForgetPassword] = useState(null)
   const [successForgetPassword, setSuccessForgetPassword] = useState(null)
@@ -248,6 +247,16 @@ const resetPassword = async (e, token) => {
   
   /////////////////////
 
+
+
+useEffect (()=>{
+
+  getProfile()
+
+ 
+}
+)
+
   /////////////////STORE///////////////
   const store = {
     login,
@@ -261,12 +270,10 @@ const resetPassword = async (e, token) => {
     forgetPassword,
      successForgetPassword ,
      resetPassword,
-     errorResetPassword
+     errorResetPassword,
+     Comment
   }
-useEffect (()=>{
-  getProfile()
-}
-)
+
   return (
 
 

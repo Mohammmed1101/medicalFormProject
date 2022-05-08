@@ -124,16 +124,7 @@ router.delete("/:id", async (req, res) => {
     try {
 
         //check token
-        const token = req.header("Authorization")
-        if (!token) return res.status(401).json("token is missing")
-
-        const decryptToken = jwt.verify(token, process.env.JWT_SECRET_KEY)
-        const userId = decryptToken.id
-
-        const user = await User.findById(userId).select("-password")
-        if (!user) return res.status(404).json("User not found")
-        req.userId = userId
-
+       
         //check id
         const id = req.params.id
         if (!mongoose.Types.ObjectId.isValid(id))
@@ -142,7 +133,7 @@ router.delete("/:id", async (req, res) => {
         await Comment.deleteMany({ drugsId: req.params.id })
         const drugs = await drug.findByIdAndRemove(req.params.id)
         if (!drugs) return res.status(404).json("drug not found")
-        if (drugs.owner != req.userId) return res.status(403).json("Unauthorized action")
+      if (drugs.owner != req.userId && drugs.owner.role !="Admin") return res.status(403).json("Unauthorized action")
 
         await User.findByIdAndUpdate(req.userId, { $pull: { drugs: drug._id } })
 
@@ -208,15 +199,7 @@ router.post("/:drugId/comments", async (req, res) => {
 router.delete("/:drugId/comments/:commentId", async (req, res) => {
     try {
         //check token
-        const token = req.header("Authorization")
-        if (!token) return res.status(401).json("token is missing")
-
-        const decryptToken = jwt.verify(token, process.env.JWT_SECRET_KEY)
-        const userId = decryptToken.id
-        req.userId = userId
-
-        const user = await User.findById(userId).select("-password")
-        if (!user) return res.status(404).json("User not found")
+    
 
         //check id
         const drugId = req.params.drugId
@@ -235,7 +218,7 @@ router.delete("/:drugId/comments/:commentId", async (req, res) => {
         if (!commentFound) return res.status(404).json("comment not found")
 
 
-        if (commentFound.owner != req.userId) return res.status(403).json("unauthorized action")
+        //if (commentFound.owner != req.userId) return res.status(403).json("unauthorized action")
         await drug.findByIdAndUpdate(req.params.drugId, { $pull: { comments: commentFound._id } })
         await Comment.findByIdAndRemove(req.params.commentId)
         res.json("comment deleted")
@@ -279,7 +262,7 @@ router.get("/:drugId/:commentId/likes", async (req, res) => {
 
         const isConsumer = await User.findById(userId)
         if (!isConsumer ) return res.status(404).json("user not found")
-       // if (isConsumer.role!=="Consumer" & isConsumer.role!=="Specialist") return res.status(404).send("you are not allowed to add comments ")
+       // if (isConsumer.role!=="Consumer" & isConsumer.role!=="Specialist") return res.status(404).send("you are not allowed like this comment ")
         
         //check(validate) id
         const id = req.params.commentId
@@ -321,7 +304,7 @@ router.get("/:drugId/:commentId/dislikes", async (req, res) => {
 
         const isConsumer = await User.findById(userId)
         if (!isConsumer ) return res.status(404).json("user not found")
-        if (isConsumer.role!=="Consumer" & isConsumer.role!=="Specialist") return res.status(404).send("you are not allowed to add comments ")
+      //  if (isConsumer.role!=="Consumer" & isConsumer.role!=="Specialist") return res.status(404).send("you are not allowed to dislike  ")
         
         //check(validate) id
         const id = req.params.commentId
@@ -387,13 +370,12 @@ router.post("/:drugId/rate", async (req, res) => {
         // console.log(drug.rating);
       
         const ratingFound = Drug.rating.find(ratingObject => ratingObject.userId == req.userId) 
-<<<<<<< HEAD
+
     //  if (ratingFound) return res.status(400).send("user already rated this drug")
       await drug.findByIdAndUpdate(req.params.drugId, { $push: { rating: newrate } }, { new: true })
-=======
+
         if (ratingFound) return res.status(400).send("user already rated this drug")
         Dryg = await drug.findByIdAndUpdate(req.params.drugId, { $push: { rating: newrate } }, { new: true })
->>>>>>> 49a8117d042d1a983c4e18727b375d90b9956e18
 
        //  await newrate.save()
         // res.json(newrate)

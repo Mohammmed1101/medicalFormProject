@@ -75,18 +75,6 @@ router.get("/:id", async (req, res) => {
 //delet post
 router.delete("/:id", async (req, res) => {
     try {
-
-        //check token
-        const token = req.header("Authorization")
-        if (!token) return res.status(401).json("token is missing")
-
-        const decryptToken = jwt.verify(token, process.env.JWT_SECRET_KEY)
-        const userId = decryptToken.id
-     
-        const user = await User.findById(userId).select("-password")
-        if (!user) return res.status(404).json("user not found")
-        req.userId = userId
-
         //check id
         const id = req.params.id
         if (!mongoose.Types.ObjectId.isValid(id))
@@ -94,11 +82,7 @@ router.delete("/:id", async (req, res) => {
     
             const posts = await Post.findByIdAndRemove(req.params.id)
              if (!posts) return res.status(404).json("post not found")
-
-            const isAdmin = await User.findById(userId)
-             if (!isAdmin) return res.status(404).json("user not found")
-             if (posts.owner != req.userId & isAdmin.role!=="Admin" ) return res.status(403).json("Unauthorized action")
-    
+     
         await User.findByIdAndUpdate(req.userId, { $pull: { posts: Post._id } })
         res.json(posts) 
     } catch (error) {

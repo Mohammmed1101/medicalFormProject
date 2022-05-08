@@ -5,15 +5,14 @@ import "./DrugStyle.css"
 import Comment from './comment/Comment';
 import Rate from "./Rate"
 import CommentsList from './comment/CommentsList';
-import DeleteDrug from './DeleteDrug'
+
 import { useContext } from "react";
 import axios from "axios";
 import PostsContext from '../../utils/PostsContext';
 import BootstrapMenu from "bootstrap-menu";
 function DrugPage() {
-  const [deleteShow, setDeleteShow] = useState(false)
+ 
     const [Drug, setDrug] = useState([]);
-    const { deleteDrugs, Drugs, profile} = useContext(PostsContext)
     const [errorOnePost, setErrorOnePost] = useState(null)
       const [editShow, setEditShow] = useState(false)
    
@@ -31,23 +30,8 @@ function DrugPage() {
           setDrug(null)
       }
   }
-    useEffect(() => {
-      const menu1 = new BootstrapMenu('#menu-posts', {
-          menuEvent: 'click', 
-          
-          menuPosition: 'belowLeft', 
-          actions: [{
-              name: 'Edit',
-              onClick: () => setEditShow(true)
-          }, {
-              name: 'Delete',
-              onClick: () => setDeleteShow(true)
-          }]
-      })
-      getDrug()
 
-  }, [Drugs])
-
+  getDrug ()
  return ( 
       <div >
   <div className="container">
@@ -56,8 +40,7 @@ function DrugPage() {
             <div className="col-md-4 mb-3">
               <div className="card">
                 <div className="card-body">
-                  <DeleteDrug></DeleteDrug>
-                <DeleteDrug show={deleteShow} setShow={setDeleteShow} drugId={id} />
+      
                   <div className="d-flex flex-column align-items-center text-center">
                     <img src={Drug.image}alt="drug" className="rounded-circle" width="150"/>
                     <div className="mt-3">
