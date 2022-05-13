@@ -1,14 +1,15 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+
 function Posts() {
     const [post, setpost] = useState([]);
-    useEffect(() => {
+   
         const url = "/MyMediForm/posts/posts";
         const fetchData = async () => {
             try {
                 const response = await fetch(url);
                 const json = await response.json();
-             console.log(JSON.stringify(json));
+       
              setpost(json)
             } catch (error) {
                 console.log("error", error);
@@ -16,7 +17,7 @@ function Posts() {
         };
           fetchData();
 
-    }, []);
+ 
    
     function deletedrug(id)
     {

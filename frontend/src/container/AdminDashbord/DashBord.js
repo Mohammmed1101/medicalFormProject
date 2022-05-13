@@ -5,18 +5,10 @@ import AddDrug from './AddDrug';
 import Drugs from '../Drugs/Drugs';
 import AddDRA from './AddDRA';
 import Posts from "../posts/Posts"
+import SpLe from './SpLe';
 export default function DashBord(props) {
   
-//   const navigate = useNavigate();
-// useEffect(()=>{
-//   const token=localStorage.getItem('token')
-//   if(token){
-//     const user=jwt.decode(token)
-//   if(!user){
-//     localStorage.removeItem('token')
-//     navigate("/login")
-//   }}
-// },[])
+
 
 
     return (
@@ -32,6 +24,7 @@ export default function DashBord(props) {
                     
           <Nav.Item>
           <Nav.Link eventKey="second">المستخدمين</Nav.Link>
+
         </Nav.Item>
 
         <Nav.Item>
@@ -69,6 +62,7 @@ export default function DashBord(props) {
          </Tab.Pane>
          <Tab.Pane eventKey="second">
            <AddDRA/>
+           <SpLe/>
          <sonnet />
          </Tab.Pane>
   

@@ -371,19 +371,14 @@ router.post("/:drugId/rate", async (req, res) => {
       
         const ratingFound = Drug.rating.find(ratingObject => ratingObject.userId == req.userId) 
 
-    //  if (ratingFound) return res.status(400).send("user already rated this drug")
-      await drug.findByIdAndUpdate(req.params.drugId, { $push: { rating: newrate } }, { new: true })
-
-        if (ratingFound) return res.status(400).send("user already rated this drug")
-        Dryg = await drug.findByIdAndUpdate(req.params.drugId, { $push: { rating: newrate } }, { new: true })
-
-       //  await newrate.save()
-        // res.json(newrate)
-        
+       if (ratingFound) return res.status(400).send("شكرا لك لقد قمت بتقييم هذا الدواء سابقا")
+        await drug.findByIdAndUpdate(req.params.drugId, { $push: { rating: newrate } }, { new: true })
+        Drug = await drug.findByIdAndUpdate(req.params.drugId, { $push: { rating: newrate } }, { new: true })
+ 
         let ratingSum = 0
         Drug.rating.forEach(reationgObject => ratingSum = ratingSum + reationgObject.rate)
         const ratingAverage = ratingSum / Drug.rating.length
-         await drug.findByIdAndUpdate(req.params.drugId, { $set: { ratingAverage } })
+         await drug.findByIdAndUpdate(req.params.drugId, { $set: {  averrage: ratingAverage } })
        
         res.send("rating added")
     } catch (error) {

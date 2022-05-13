@@ -32,7 +32,7 @@ function AddDRA(props) {
     const data = await res.json();
     if(res.status===422 || ! data){
     window.alert("Invalid reg")
-    console.log("")
+
     }else{
         window.alert("check your email")
         console.log("done")

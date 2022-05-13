@@ -1,15 +1,15 @@
 import React from 'react';
 import "./Hpost.css"
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 function HomePost(props) {
     const [post, setpost] = useState([]);
-    useEffect(() => {
+  
         const url = "/MyMediForm/posts/posts";
         const fetchData = async () => {
             try {
                 const response = await fetch(url);
                 const json = await response.json();
-             console.log(JSON.stringify(json));
+        
              setpost(json)
             } catch (error) {
                 console.log("error", error);
@@ -18,7 +18,7 @@ function HomePost(props) {
           fetchData();
        
     
-    }, []);
+
    
     const listpost = [...post].map((post) => 
     <div  key={post.id} style={{textAlign:"right"}}>
@@ -54,7 +54,7 @@ function HomePost(props) {
                 </div>
                 <div class="content mt-4">
                     <h5 class="title">Fully Responsive</h5>
-                    <p class="text-muted mt-3 mb-0">{listpost [listpost.length-1]}</p>
+                    <p class="text-muted mt-3 mb-0" style={{ "overflow": "hidden","max-height": "200px",   "text-overflow": "ellipsis","font-size": "15px"}}>{listpost [listpost.length-1]}</p>
                     <div class="mt-3">
                         <a href="/posts" class="text-custom"> جميع المنشورات<i class="mdi mdi-chevron-right"></i></a>
                     </div>
@@ -72,7 +72,7 @@ function HomePost(props) {
                 </div>
                 <div class="content mt-4">
                     <h5 class="title">Fresh Layouts</h5>
-                    <p class="text-muted mt-3 mb-0">{listpost [listpost.length-2]}</p>
+                    <p class="text-muted mt-3 mb-0" style={{ "overflow": "hidden","max-height": "200px",   "text-overflow": "ellipsis", "font-size": "15px"}}>{listpost [listpost.length-2]}</p>
                     <div class="mt-3">
                         <a href="/posts" class="text-custom">جميع المنشورات <i class="mdi mdi-chevron-right"></i></a>
                     </div>
@@ -90,7 +90,7 @@ function HomePost(props) {
                 </div>
                 <div class="content mt-4" >
                     <h5 class="title">Minimalism Feast</h5>
-                    <p class="text-muted mt-3 mb-0">{listpost [listpost.length-3]}.</p>
+                    <p class="text-muted mt-3 mb-0" style={{ "overflow": "hidden","max-height": "200px",   "text-overflow": "ellipsis" , "font-size": "15px"}}>{listpost [listpost.length-3]}.</p>
                     <div class="mt-3">
                         <a href="/posts" class="text-custom">جميع المنشورات<i class="mdi mdi-chevron-right"></i></a>
                     </div>
@@ -107,7 +107,7 @@ function HomePost(props) {
                 </div>
                 <div class="content mt-4">
                     <h5 class="title">Modern Workflow</h5>
-                    <p class="text-muted mt-3 mb-0">{listpost [listpost.length-4]}</p>
+                    <p class="text-muted mt-3 mb-0" style={{ "overflow": "hidden","max-height": "200px",   "text-overflow": "ellipsis" , "font-size": "15px"}}>{listpost [listpost.length-4]}</p>
                     <div class="mt-3">
                         <a href="/posts" class="text-custom">جميع المنشورات <i class="mdi mdi-chevron-right"></i></a>
                     </div>
@@ -125,7 +125,7 @@ function HomePost(props) {
                 </div>
                 <div class="content mt-4">
                     <h5 class="title">Unique Features</h5>
-                    <p class="text-muted mt-3 mb-0">{listpost [listpost.length-5]}</p>
+                    <p class="text-muted mt-3 mb-0" style={{ "overflow": "hidden","max-height": "200px",   "text-overflow": "ellipsis" , "font-size": "15px"}}>{listpost [listpost.length-5]}</p>
                     <div class="mt-3">
                         <a href="/posts" class="text-custom">جميع المنشورات <i class="mdi mdi-chevron-right"></i></a>
                     </div>
@@ -143,7 +143,7 @@ function HomePost(props) {
                 </div>
                 <div class="content mt-4">
                     <h5 class="title">Support 24/7</h5>
-                    <p class="text-muted mt-3 mb-0">{listpost [listpost.length-6]}</p>
+                    <p class="text-muted mt-3 mb-0" style={{ "overflow": "hidden","max-height": "200px",   "text-overflow": "ellipsis",  "font-size": "15px"}}>{listpost [listpost.length-6]}</p>
                     <div class="mt-3">
                         <a href="/posts" class="text-custom">جميع المنشورات<i class="mdi mdi-chevron-right"></i></a>
                     </div>

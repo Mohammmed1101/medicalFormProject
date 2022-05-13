@@ -1,17 +1,14 @@
 import React from 'react';
-import Carousel from 'react-bootstrap/carousel'
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
 import {Card, Button}from "react-bootstrap"
 import { Slide } from 'react-slideshow-image';
 import "./hdrug.css"
 import 'react-slideshow-image/dist/styles.css'
-import { height } from '@mui/system';
 function HomeDrug() {
 
     const url = "/MyMediForm/drug/drugs";
     const [Drug, setDrug] = useState([]);
-    useEffect(() => {
+
         const fetchData = async () => {
             try {
                 const response = await fetch(url);
@@ -24,7 +21,7 @@ function HomeDrug() {
         };
           fetchData();
      
-    }, []);
+ 
 
    const listDrugs=Drug.map((Drug) =>
  

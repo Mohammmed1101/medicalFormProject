@@ -6,7 +6,7 @@ import Newpost from '../posts/NewPost'
 
 function Profile() {
     const { profile } = useContext(PostsContext)
- if(!profile) return<img src='https://www.yanbuweather.com/pages/cloudsat/loading.gif?1' width={300}></img>
+ if(!profile) return<img src='https://www.yanbuweather.com/pages/cloudsat/loading.gif?1' width={300} alt ="pictuer"></img>
     return (
         <div >
         <div className="container">

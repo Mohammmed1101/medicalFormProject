@@ -4,7 +4,7 @@ import { Button, OverlayTrigger, Tooltip } from "react-bootstrap"
 import { AiFillStar } from "react-icons/ai"
 import OneStar from "./OneStar"
 
-export default function App(props) {
+export default function Rate(props) {
     const [show, setShow] = useState(false)
     const [fill, setFill] = useState(0)
     const { Drugid } = props

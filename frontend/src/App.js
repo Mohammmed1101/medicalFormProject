@@ -19,7 +19,7 @@ import CompanyProfile from './container/profile/CompanyProfile';
 import Forgetpassword from './container/login/Forgetpassword';
 import ResetPassword from "./container/login/ResetPassword"
 import EmailVerified from "./container/register/EmailVerified"
-import Chat from "./container/Chat/Components/Chat/Chat"
+
 function App() {
 
   const [errorLogin, setErrorLogin] = useState(null)
@@ -196,10 +196,10 @@ const resetPassword = async (e, token) => {
         },
       })
       
-      toast.success("Your rate is added")
+      // toast.success("Your rate is added")
     } catch (error) {
-      if (error.response) toast.error(error.response.data)
-      else console.log(error)
+      if (error.response)  alert(error.response.data);//toast.error(error.response.data)
+      else alert(error)
     }
   }
   
@@ -297,7 +297,6 @@ useEffect (()=>{
         <Route path="/posts" element={<Posts />} />
         <Route path="/drugs/:id" element={<DrugPage />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/chat" element={<Chat />} />
         <Route path="/orgprofile" element={<CompanyProfile/>} />
         <Route path="/Forgetpassword" element={<Forgetpassword/>} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />

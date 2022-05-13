@@ -5,7 +5,7 @@ import { useContext } from "react";
 import PostsContext from '../../../utils/PostsContext';
 import { useParams } from "react-router-dom";
 function Comment() {
-    const { addComment, Drug } = useContext(PostsContext)
+    const { addComment } = useContext(PostsContext)
     const {id} = useParams();
 
     return (

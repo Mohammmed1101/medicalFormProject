@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import "./drug.css"
 import { TextField } from '@mui/material';
 import { useContext} from "react"
@@ -11,7 +11,7 @@ export default  function Drugs() {
 const { profile } = useContext(PostsContext)
         const url = "/MyMediForm/drug/drugs";
         const [Drug, setDrug] = useState([]);
-        useEffect(() => {
+      
             const fetchData = async () => {
                 try {
                     const response = await fetch(url);
@@ -24,7 +24,7 @@ const { profile } = useContext(PostsContext)
             };
               fetchData();
          
-        }, []);
+    
 // function to delet 
 function deletedrug(id)
 {
@@ -58,7 +58,7 @@ function deletedrug(id)
   
                 <button onClick={()=>deletedrug(Drug._id)} style={{"float":"right"  ,"border":"0px"}} > <i class="bi bi-trash3-fill"></i></button>
   
-                    <p className="card-text">{Drug.averrage}</p>
+                    <p className="card-text">{Drug.ratingAverage}</p>
                     <Link  to={`/drugs/${Drug._id}`} >المزيد</Link>
                     
                     

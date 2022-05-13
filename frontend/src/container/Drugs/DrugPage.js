@@ -1,15 +1,12 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams } from "react-router-dom";
 import "./DrugStyle.css"
 import Comment from './comment/Comment';
 import Rate from "./Rate"
 import CommentsList from './comment/CommentsList';
-
-import { useContext } from "react";
 import axios from "axios";
-import PostsContext from '../../utils/PostsContext';
-import BootstrapMenu from "bootstrap-menu";
+
 function DrugPage() {
  
     const [Drug, setDrug] = useState([]);
@@ -17,8 +14,7 @@ function DrugPage() {
       const [editShow, setEditShow] = useState(false)
    
     const {id} = useParams();
-  
-  
+    
     const getDrug = async () => {
       try {
           const response = await axios.get( `/MyMediForm/drug/${id}`)
@@ -49,15 +45,12 @@ function DrugPage() {
                       <p className="text-muted font-size-sm">هيئه الدواء والغذاء في السعوديه</p>
                       <p>التقييمات</p>
                       <Rate/>
-                 
+                      <h5>{Drug.ratingAverage}</h5>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-
-           
-          
 
             <div className="col-md-8">
               <div className="card mb-3">

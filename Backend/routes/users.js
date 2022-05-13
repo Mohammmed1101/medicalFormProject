@@ -22,10 +22,10 @@ router.post("/signup", async (req, res) => {
 
         //check email 
         let userFound = await User.findOne({ email })
-        if (userFound) return res.status(400).json("user already registered email taken")
+        if (userFound) return res.status(400).json("مستخدم المسجل البريد الإلكتروني بالفعل مأخوذ")
         
         userFound = await User.findOne({ username })
-        if (userFound) return res.status(400).json("user already registered username taken")
+        if (userFound) return res.status(400).json("مستخدم مسجل بالفعل ، اسم المستخدم مأخوذ")
 
         const salt = await bcrypt.genSalt(10)
         const hash = await bcrypt.hash(password, salt)
@@ -242,10 +242,10 @@ router.post("/signup/admin", async (req, res) => {
 
         //check email 
         let userFound = await User.findOne({ email })
-        if (userFound) return res.status(400).json("user already registered email taken")
+        if (userFound) return res.status(400).json("مستخدم المسجل البريد الإلكتروني بالفعل مأخوذ")
         
         userFound = await User.findOne({ username })
-        if (userFound) return res.status(400).json("user already registered username taken")
+        if (userFound) return res.status(400).json("مستخدم مسجل بالفعل ، اسم المستخدم مأخوذ")
 
         const salt = await bcrypt.genSalt(10)
         const hash = await bcrypt.hash(password, salt)
@@ -456,11 +456,11 @@ router.post("/signup/company", async (req, res) => {
         if (result.error) return res.status(400).json(result.error.details[0].message)
         //check email 
         let userFound = await User.findOne({ email })
-        if (userFound) return res.status(400).json("user already registered email taken")
+        if (userFound) return res.status(400).json("مستخدم المسجل البريد الإلكتروني بالفعل مأخوذ")
         userFound = await User.findOne({ username })
-        if (userFound) return res.status(400).json("user already registered username taken")
+        if (userFound) return res.status(400).json("مستخدم مسجل بالفعل ، اسم المستخدم مأخوذ")
         userFound = await User.findOne({company_No})
-        if (userFound) return res.status(400).json("Company already registered ")
+        if (userFound) return res.status(400).json("الشركة مسجله بالفعل ")
         const salt = await bcrypt.genSalt(10)
         const hash = await bcrypt.hash(password, salt)
         const userBody = new User({
@@ -486,7 +486,7 @@ router.post("/signup/company", async (req, res) => {
           continue
             }
             console.log(value)
-            if (value==false)return res.status(404).json("the company no it not correct ")
+            if (value==false)return res.status(404).json("رقم الشركه غير صحيح")
 
 
 
@@ -697,12 +697,12 @@ router.post("/signup/dra", async (req, res) => {
      const userId = decryptToken.id
 
      const user = await User.findById(userId).select("-password")
-     if (!user) return res.status(404).json("user not found")
+     if (!user) return res.status(404).json("المستخدم غير موجود")
      req.userId = userId
 
 
         const isAdmin = await User.findById(userId)
-        if (!isAdmin) return res.status(404).json("user not found")
+        if (!isAdmin) return res.status(404).json("المستخدم غير موجود")
       //  if (isAdmin.role!=="Admin") return res.status(404).send("Only Admin Authoriz to creat this account !!")
 
         //content
@@ -913,11 +913,11 @@ router.post("/login", async (req, res) => {
         const result = loginJoi(req.body)
         if (result.error) return res.status(400).json(result.error.details[0].message)
         const user = await User.findOne({ $or: [{ email }, { username }] })
-        if (!user) return res.status(404).json("user not registered")
+        if (!user) return res.status(404).json("اسم المستخدم او البريد الالكتروني غير صحيح")
         const valid = await bcrypt.compare(password, user.password)
-        if (!valid) return res.status(400).json("password is wrong")
+        if (!valid) return res.status(400).json("كلمه المرور خاطئه")
 
-        if (!user.emailVerified) return res.status(403).send("user not verified , please check your email")
+        if (!user.emailVerified) return res.status(403).send("لم يتم التحقق من المستخدم ، يرجى التحقق من البريد الإلكتروني الخاص بك")
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: "10d" })
 
         res.send(token)
@@ -1059,7 +1059,7 @@ router.post("/forgot-password", async (req, res) => {
         if (result.error) return res.status(400).json(result.error.details[0].message)
 
         const user = await User.findOne({ $or: [{ email }, { username }] })
-        if (!user) return res.status(404).json("user not registered")
+        if (!user) return res.status(404).json("اسم المستخدم او البريد الالكتروني غير صحيح")
 
         const transporter = nodemailer.createTransport({
             service: "gmail",
@@ -1287,10 +1287,10 @@ router.post("/upgrade", async (req, res) => {
         req.UserId = UserId
 
         const user = await User.findById(UserId).select("-password")
-        if (!user) return res.status(404).json("User not found")
+        if (!user) return res.status(404).json("المستخدم غير موجود")
 
         const isConsumer = await User.findById(UserId)
-        if (!isConsumer ) return res.status(404).json("user not found")
+        if (!isConsumer ) return res.status(404).json("المستخدم غير موجود")
     //   if (isConsumer.role!=="Consumer") return res.status(404).send("you are not allowed to upGrade your acc ")
         
         //validate
@@ -1315,27 +1315,15 @@ router.post("/upgrade", async (req, res) => {
     }
 })
 
-router.put("/AcceptLicense/:SpecialistLicenseid", async (req, res) => {//Likes
+router.put("/AcceptLicense/:SpecialistLicenseid", async (req, res) => {
         try {
-            //check token
-            const token = req.header("Authorization")
-            if (!token) return res.status(401).json("token is missing")
-    
-            const decryptToken = jwt.verify(token, process.env.JWT_SECRET_KEY)
-            const userId = decryptToken.id
-    
-            const user = await User.findById(userId).select("-password")
-            if (!user) return res.status(404).json("user not found")
-            req.userId = userId
-            //check(validate) id
             const id = req.params.SpecialistLicenseid
             if (!mongoose.Types.ObjectId.isValid(id))
                 return res.status(400).send("The path is not valid object id")
-    
             let specialistLicense = await SpecialistLicense.findById(req.params.SpecialistLicenseid)
             if (!specialistLicense) return res.status(404).json("post not found")
     
-                await User.findByIdAndUpdate(req.userId, { $set:{role:"Specialist" } })
+                await User.findByIdAndUpdate(specialistLicense.owner, { $set:{role:"Specialist" } })
                 res.json("Acc upgrade")
             
         } catch (error) {
@@ -1344,6 +1332,33 @@ router.put("/AcceptLicense/:SpecialistLicenseid", async (req, res) => {//Likes
         }
     })
 
+    router.get("/License", async (req, res) => {
+        try {
+            const License = await SpecialistLicense.find().sort("-Date")
+            res.json(License)
+        } catch (error) {
+            console.log(error.message)
+            res.status(500).json("The problem in server")
+        }
+    })
 
+
+    router.delete("/License/:id", async (req, res) => {
+        try {
+            //check id
+            const id = req.params.id
+            if (!mongoose.Types.ObjectId.isValid(id))
+                return res.status(400).send("The path is not valid")
+        
+                const specialistLicense = await SpecialistLicense.findByIdAndRemove(req.params.id)
+                 if (!specialistLicense) return res.status(404).json("post not found")
+         
+            await User.findByIdAndUpdate(req.userId, { $pull: {specialistLicense: specialistLicense._id } })
+            res.json(specialistLicense) 
+        } catch (error) {
+            console.log(error.message)
+            res.status(500).json("The problem in server")
+        }
+    })
 
 module.exports = router;

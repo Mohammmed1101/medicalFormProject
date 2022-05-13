@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import "./commentlist.css"
-import axios from "axios";
+
 export default  function CommentsList() {
    
   const {id} = useParams();
@@ -19,11 +19,7 @@ export default  function CommentsList() {
                     console.log("error", error);
                 }
             };
-            useEffect (()=>{
-              GetComment()
-             
-            }
-            )
+            GetComment()
       
          
        function postLike (Commentid ) {

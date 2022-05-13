@@ -5,7 +5,7 @@ import { toast } from "react-toastify"
 import PostsContext from '../../utils/PostsContext';
 import { useParams } from "react-router-dom";
 function OneStar(props) {
-  const { fill, setFill, starNumber, Drugid, setShow } = props
+  const { fill, setFill, starNumber, setShow } = props
   const { addRate} = useContext(PostsContext)
   const {id} = useParams();
   return fill >= starNumber ? (
