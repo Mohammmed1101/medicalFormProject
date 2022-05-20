@@ -3,9 +3,11 @@ import React from 'react'
 import "./Home.css"
 import { ReactTypical} from '@deadcoder0904/react-typical'
 import { Link } from 'react-router-dom'
-
+import { useContext } from 'react'
+import postContext from "../../../utils/PostsContext"
 
 export default function homepage() {
+
     return(
 <div className='p-c'>
     <div className='p-p'>
@@ -50,11 +52,16 @@ export default function homepage() {
                     </span>
                 </span>
             </div>
-            <div className='p-o'>
+            { localStorage.tokenSocial?
+            
+       "مرحبا بك مجددا "
+    :
+    <div className='p-o'>
 
             <Link className='btn' to="/signup">أنشاء حساب</Link>
             <Link className='btn' to="/login">تسجيل الدخول</Link>
-         </div> 
+
+         </div> }
          </div>
          <div className='p-pic'>
              <div className='p-pic-bg'> </div>

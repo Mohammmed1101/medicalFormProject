@@ -44,7 +44,10 @@ function DrugPage() {
                       <p className="text-secondary mb-1">دواء مصرح من </p>
                       <p className="text-muted font-size-sm">هيئه الدواء والغذاء في السعوديه</p>
                       <p>التقييمات</p>
+                      
+        { localStorage.tokenSocial?
                       <Rate/>
+                      :""}
                       <h5>{Drug.ratingAverage}</h5>
                     </div>
                   </div>
@@ -106,16 +109,19 @@ function DrugPage() {
           </div>
           
         </div>
+        { localStorage.tokenSocial?
         <div className="col-md-4 mb-9" style={{"margin-top": "-275px"}}>
                   <div className="card " >
                     <div className="card-body">
+                
                     <div className=" align-items-center text-center">
-                    
-                      <Comment/>
+                            <Comment/>
+                      </div> 
                       
-                      </div> </div>
+                    </div>
                   </div>
                 </div>
+                :""}
                
     </div>
 

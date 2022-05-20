@@ -91,8 +91,10 @@ function deletedrug(commentId)
                     {Comment.dislikes.length}
                  
                 </li>
+                
+        { localStorage.tokenSocial?
                 <button onClick={()=>deletedrug(Comment._id)} style={{"float":"right"  ,"border":"0px"}} > <i class="bi bi-trash3-fill"></i></button>
-
+            :""}
               </ul>
             </div>
         </div>

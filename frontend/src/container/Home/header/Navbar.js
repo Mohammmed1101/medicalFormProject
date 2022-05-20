@@ -5,8 +5,6 @@ import logo from "../../../assets/logo.svg";
 import Home from "../../../assets/home-solid.svg";
 import Team from "../../../assets/social.svg";
 import Calender from "../../../assets/sceduled.svg";
-import Projects from "../../../assets/starred.svg";
-import Documents from "../../../assets/draft.svg";
 import PowerOff from "../../../assets/power-off-solid.svg";
 import styled from "styled-components";
 import {useNavigate} from 'react-router-dom';
@@ -235,28 +233,8 @@ const Sidebar = () => {
           </Item>
 
 
-          <Item
-            onClick={() => setClick(false)}
-            activeClassName="active"
-            href="/chat"
-          >
-            <img src={Documents} alt="Documents" />
-            <Text clicked={click}>أنشاء حساب</Text>
-          </Item>
-
-
-
-          <Item
-            onClick={() => setClick(false)}
-            activeClassName="active"
-            to="/drugs"
-          >
-            <img src={Projects} alt="Projects" />
-            <Text clicked={click}>Projects</Text>
-          </Item>
-
-
         </SlickBar>
+        { localStorage.tokenSocial?
 
         <Profile clicked={profileClick}>
           <img
@@ -276,6 +254,7 @@ const Sidebar = () => {
             </Logout>
           </Details>
         </Profile>
+        :""}
       </SidebarContainer>
     </Container>
   );
