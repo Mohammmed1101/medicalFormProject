@@ -31,8 +31,13 @@ function Profile() {
                         {profile.avatar?<img src={profile.avatar} alt="pr" className="rounded-circle" width="150"/>:""}
                           <div className="mt-3">
                             <h4>{profile.firstName} {profile.lastName}</h4>
-                            <button className="btn btn-outline-primary" onClick={Specialist} >الترقيه الى حساب طبيب</button>
+                            {profile.role.toString()=="Consumer"?
+                            <div>
+                            <button className="btn btn-outline-primary" onClick={Specialist} >الترقيه الى حساب طبيب</button> 
                             <SpecialistLicense ref ={show}/>
+                            </div>
+                            :""}
+                    
                           </div>
                         </div>
                       </div>
@@ -72,7 +77,7 @@ function Profile() {
 
                         <div className="row">
                           <div className="col-sm-12">
-                            {/* <a className="btn btn-info " target="__blank" href="/">Edit</a> */}
+                          
                           </div>
                         </div>
                       </div>

@@ -9,6 +9,8 @@ import PowerOff from "../../../assets/power-off-solid.svg";
 import styled from "styled-components";
 import {useNavigate} from 'react-router-dom';
 import {NavLink} from 'react-bootstrap';
+import { useContext} from "react"
+import PostsContext from '../../../utils/PostsContext';
 
 const Container = styled.div`
   position: fixed;
@@ -197,13 +199,15 @@ const Sidebar = () => {
   const handleProfileClick = () => setprofileClick(!profileClick);
   const navigate = useNavigate();
 
-  let user =JSON.parse(localStorage.getItem('user-info'))
+
+
   function logout(){
     localStorage.clear()
     navigate('/login');
   }
- 
+  const { profile } = useContext(PostsContext)
   return (
+    
     <Container>
       <Button clicked={click} onClick={() => handleClick()}> 
       </Button>
@@ -243,12 +247,19 @@ const Sidebar = () => {
             alt=""
           />
           <Details clicked={profileClick}>
+         { profile.role=="Consumer"||"Specialist"?
             <Name>
-              <h4>{user && user.name}</h4>
+              <h4>{ profile &&  profile.name}</h4>
                <a href="/profile">view&nbsp;profile</a> 
             </Name>
+:
 
-            <Logout>
+<Name>
+<h4>{user && user.name}</h4>
+ <a href="/orgprofile">view&nbsp;profile</a> 
+</Name>}
+     
+     <Logout>
               <img src={PowerOff} alt="logout"  onClick={logout}/>
 
             </Logout>

@@ -1,10 +1,12 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
+import { useContext } from 'react'
+import PostsContext from "../../../utils/PostsContext"
 import "./commentlist.css"
 
 export default  function CommentsList() {
-   
+  const { profile } = useContext(PostsContext)
   const {id} = useParams();
         const url = `/MyMediForm/drug/${id}/comments`;
         const [Comment, setComment] = useState([]);
@@ -77,6 +79,7 @@ function deletedrug(commentId)
        
               <p> {Comment.comment}</p>
 
+{profile.role=="Consumer"||"Specialist"?
               <ul class="list-inline d-sm-flex my-0">
 
                 <li class="list-inline-item g-mr-20">
@@ -91,11 +94,12 @@ function deletedrug(commentId)
                     {Comment.dislikes.length}
                  
                 </li>
-                
         { localStorage.tokenSocial?
+          profile.role.toString()=="Admin"?
                 <button onClick={()=>deletedrug(Comment._id)} style={{"float":"right"  ,"border":"0px"}} > <i class="bi bi-trash3-fill"></i></button>
-            :""}
+                :"" :""}
               </ul>
+              :""}
             </div>
         </div>
     </div>

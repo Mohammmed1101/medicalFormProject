@@ -3,8 +3,7 @@ import React from 'react'
 import "./Home.css"
 import { ReactTypical} from '@deadcoder0904/react-typical'
 import { Link } from 'react-router-dom'
-import { useContext } from 'react'
-import postContext from "../../../utils/PostsContext"
+
 
 export default function homepage() {
 

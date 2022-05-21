@@ -16,7 +16,7 @@ const postSchema = new mongoose.Schema({
         ref: "user"
     },
 })
-//add post
+
 const postJoi = Joi.object({
     title: Joi.string().max(200).required(),
     description: Joi.string().max(10000).required(),

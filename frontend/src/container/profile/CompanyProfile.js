@@ -33,7 +33,7 @@ function Profile() {
                       <div className="row"  style={{ "width":"800px"}}>
                       <Newpost/>
                       <div className="card-body" style={{"width":"40%"}}>
-                        {profile.role=="DRA"?<AddDrug />:""}
+                        {profile.role.toString()=="DRA"?<AddDrug />:""}
                         </div>
                       </div>
                       </div> </div>

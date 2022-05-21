@@ -6,13 +6,15 @@ import Comment from './comment/Comment';
 import Rate from "./Rate"
 import CommentsList from './comment/CommentsList';
 import axios from "axios";
+import { useContext } from 'react'
+import PostsContext from "../../utils/PostsContext"
 
 function DrugPage() {
  
     const [Drug, setDrug] = useState([]);
     const [errorOnePost, setErrorOnePost] = useState(null)
       const [editShow, setEditShow] = useState(false)
-   
+      const { profile } = useContext(PostsContext)
     const {id} = useParams();
     
     const getDrug = async () => {
@@ -46,8 +48,10 @@ function DrugPage() {
                       <p>التقييمات</p>
                       
         { localStorage.tokenSocial?
+
+            profile.role=="Consumer"||"Specialist"?
                       <Rate/>
-                      :""}
+                      :"":""}
                       <h5>{Drug.ratingAverage}</h5>
                     </div>
                   </div>
@@ -110,6 +114,7 @@ function DrugPage() {
           
         </div>
         { localStorage.tokenSocial?
+          profile.role=="Consumer"?
         <div className="col-md-4 mb-9" style={{"margin-top": "-275px"}}>
                   <div className="card " >
                     <div className="card-body">
@@ -121,7 +126,7 @@ function DrugPage() {
                     </div>
                   </div>
                 </div>
-                :""}
+         :"":""}  
                
     </div>
 

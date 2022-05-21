@@ -24,50 +24,10 @@ app.use("/MyMediForm/conversation", conversation)
 
 //////////////////////////////
 
-
-
-
-   
-///////////////////////////////////////
-
-// app.use("/images", express.static(path.join(__dirname, "public/images")));
-
-// //middleware
-// app.use(express.json());
-// app.use(helmet());
-// app.use(morgan("common"));
-
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "public/images");
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, req.body.name);
-//   },
-// });
-//
-// const upload = multer({ storage: storage });
-// app.post("/api/upload", upload.single("file"), (req, res) => {
-//   try {
-//     return res.status(200).json("File uploded successfully");
-//   } catch (error) {
-//     console.error(error);
-//   }
-// });
-
 //server
 const port = 5000
 app.listen(port, () => {
   console.log(`listening at http://localhost:${port}`)
 })
 
-/*const admin =require('./model/admin');
-const comment=require('./model/comment');
-const Conversation=require('./model/conversation');
-const drug =require('./model/drugs');
-const likes=require('./model/like-dislike');
-const post =require('./model/post');
-const rate=require('./model/rate');
-const SpecialistLicense=require('./model/SpecialistLicense');
-const user =require('./model/user');
-*/
+

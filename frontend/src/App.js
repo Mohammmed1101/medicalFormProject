@@ -253,7 +253,6 @@ useEffect (()=>{
 
   getProfile()
 
- 
 }
 )
 
@@ -292,7 +291,7 @@ useEffect (()=>{
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/dashbord" element={<DashBord />} />
+         <Route path="/dashbord" element={<DashBord />} />
         <Route path="/drugs" element={<Drugs />} />
         <Route path="/posts" element={<Posts />} />
         <Route path="/drugs/:id" element={<DrugPage />} />

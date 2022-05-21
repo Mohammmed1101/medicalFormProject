@@ -1,9 +1,10 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-import {Card, Button}from "react-bootstrap"
+import { useState} from 'react';
+import {Card}from "react-bootstrap"
 import { Slide } from 'react-slideshow-image';
 import "./hdrug.css"
 import 'react-slideshow-image/dist/styles.css'
+import { Link } from 'react-router-dom';
 function HomeDrug() {
 
     const url = "/MyMediForm/drug/drugs";
@@ -30,7 +31,7 @@ function HomeDrug() {
     <Card.Body>
       <Card.Title>{Drug.Name}</Card.Title>
       <Card.Text> {Drug.description}</Card.Text>
-      <Button variant="primary">المزيد </Button>
+      <Link variant="primary" to={`/drugs/${Drug._id}`}>المزيد </Link>
     </Card.Body>
   </Card>
 

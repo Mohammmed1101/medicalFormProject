@@ -57,8 +57,9 @@ function deletedrug(id)
                     <p className="card-text">{Drug.Name}</p>
   
                     { localStorage.tokenSocial?
+                        profile.role=="Admin" ?
                 <button onClick={()=>deletedrug(Drug._id)} style={{"float":"right"  ,"border":"0px"}} > <i class="bi bi-trash3-fill"></i></button>
-  :""}
+                :"":""}
                     <p className="card-text">{Drug.ratingAverage}</p>
                     <Link  to={`/drugs/${Drug._id}`} >المزيد</Link>
                     
