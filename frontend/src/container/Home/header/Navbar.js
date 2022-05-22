@@ -246,18 +246,18 @@ const Sidebar = () => {
             src="https://picsum.photos/200"
             alt=""
           />
+
+
           <Details clicked={profileClick}>
-         { profile.role=="Consumer"||"Specialist"?
+    
             <Name>
               <h4>{ profile &&  profile.name}</h4>
                <a href="/profile">view&nbsp;profile</a> 
             </Name>
-:
 
-<Name>
-<h4>{user && user.name}</h4>
- <a href="/orgprofile">view&nbsp;profile</a> 
-</Name>}
+
+
+
      
      <Logout>
               <img src={PowerOff} alt="logout"  onClick={logout}/>

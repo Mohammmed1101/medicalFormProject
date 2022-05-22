@@ -41,12 +41,12 @@ function Posts() {
                 <h5 className="card-text">{post.title}</h5>
                 <p className="card-text">{post.description}</p>
                 
-        { localStorage.tokenSocial?
+        { 
           profile.role.toString()=="Admin"?
                 <div className="card-body">            
                  <button onClick={()=>deletedrug(post._id)} style={{"float":"right"  ,"border":"0px"}} > <i class="bi bi-trash3-fill"></i></button>
                 </div>
-             :"":""}
+             :""}
             </div>
         </div>
     </div>

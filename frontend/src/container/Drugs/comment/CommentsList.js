@@ -79,9 +79,9 @@ function deletedrug(commentId)
        
               <p> {Comment.comment}</p>
 
-{profile.role=="Consumer"||"Specialist"?
               <ul class="list-inline d-sm-flex my-0">
-
+              {profile.role=="Consumer"&&"Specialist"?
+              <div>
                 <li class="list-inline-item g-mr-20">
                   
                     <i class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3" onClick={()=>postLike(Comment._id)} ></i>
@@ -94,12 +94,14 @@ function deletedrug(commentId)
                     {Comment.dislikes.length}
                  
                 </li>
+                </div>
+                :""}
         { localStorage.tokenSocial?
           profile.role.toString()=="Admin"?
                 <button onClick={()=>deletedrug(Comment._id)} style={{"float":"right"  ,"border":"0px"}} > <i class="bi bi-trash3-fill"></i></button>
                 :"" :""}
               </ul>
-              :""}
+           
             </div>
         </div>
     </div>

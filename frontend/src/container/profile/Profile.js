@@ -11,14 +11,8 @@ function Profile() {
     show.current.style.display="block"
 
   }
-
     const { profile } = useContext(PostsContext)
     if(!profile) return<img src='https://www.yanbuweather.com/pages/cloudsat/loading.gif?1' width={300}></img>
-
-
- 
-
-
     return (
         <div >
         <div className="container">
@@ -89,8 +83,6 @@ function Profile() {
                           <div className="col-sm-3">
                   <br/>   التعليقات اللي قمت بنشرها 
      {  profile.comments.map(usercomment=>(
-      
-
     <div>
       <link href={profile.avatar} rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"/>
       <div class="container">
@@ -105,7 +97,6 @@ function Profile() {
                     </div>
               
                     <p> {usercomment.comment}</p>
-              
                     <ul class="list-inline d-sm-flex my-0">
                       <li class="list-inline-item g-mr-20">
                         <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"  href="#!">
