@@ -288,15 +288,15 @@ useEffect (()=>{
         pauseOnHover />
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-         <Route path="/dashbord" element={<DashBord />} />
-        <Route path="/drugs" element={<Drugs />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/drugs" element={<Drugs />} />
         <Route path="/posts" element={<Posts />} />
         <Route path="/drugs/:id" element={<DrugPage />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/orgprofile" element={<CompanyProfile/>} />
+        <Route path="/" element={<Home />} />
+        <Route path="/signup" element={<Signup />} />
+       { profile&& profile.role==="Admin"?<Route path="/dashbord" element={<DashBord />} />:"غير مسموح لك بالوصول الى هذه الصفحه"}
+       { profile&&   profile.role==="Consumer"|| profile.role==="Specialist"?  <Route path="/profile" element={<Profile />} />:"غير مسموح لك بالوصول الى هذه الصفحه"}
+        { profile&& profile.role==="Company"|| profile.role==="DRA"?  <Route path="/orgprofile" element={<CompanyProfile/>} />:"غير مسموح لك بالوصول الى هذه الصفحه"}
         <Route path="/Forgetpassword" element={<Forgetpassword/>} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/email_verified/:token" element={<EmailVerified />} />

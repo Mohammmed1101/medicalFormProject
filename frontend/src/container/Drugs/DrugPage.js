@@ -10,10 +10,9 @@ import { useContext } from 'react'
 import PostsContext from "../../utils/PostsContext"
 
 function DrugPage() {
- 
     const [Drug, setDrug] = useState([]);
+   const [loadingDrug,setLoadingDrug]= useState(true)
     const [errorOnePost, setErrorOnePost] = useState(null)
-      const [editShow, setEditShow] = useState(false)
       const { profile } = useContext(PostsContext)
     const {id} = useParams();
     
@@ -21,7 +20,7 @@ function DrugPage() {
       try {
           const response = await axios.get( `/MyMediForm/drug/${id}`)
           setDrug(response.data)
-
+          setLoadingDrug(false)
       } catch (error) {
           if (error.response)
           setErrorOnePost(error.response.data)
@@ -30,6 +29,9 @@ function DrugPage() {
   }
 
   getDrug ()
+
+  if(loadingDrug)return (<h1>loading</h1>)
+
  return ( 
       <div >
   <div className="container">
@@ -47,18 +49,19 @@ function DrugPage() {
                       <p className="text-muted font-size-sm">هيئه الدواء والغذاء في السعوديه</p>
                       <p>التقييمات</p>
                       
-        {
-
-            profile.role=="Consumer"||"Specialist"?
+        {profile &&
+        <>
+      {  profile.role &&
+            profile.role==="Consumer"|| profile.role==="Specialist"?
                       <Rate/>
-                      :""}
+                      :""  } </>
+                      }
                       <h5>{Drug.ratingAverage}</h5>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-
             <div className="col-md-8">
               <div className="card mb-3">
                 <div className="card-body">
@@ -113,8 +116,9 @@ function DrugPage() {
           </div>
           
         </div>
-        {
-          profile.role=="Consumer"?
+        {profile &&
+        <>
+        {  profile.role==="Consumer"?
         <div className="col-md-4 mb-9" style={{"margin-top": "-275px"}}>
                   <div className="card " >
                     <div className="card-body">
@@ -126,7 +130,7 @@ function DrugPage() {
                     </div>
                   </div>
                 </div>
-       :""}  
+       :""}</> } 
                
     </div>
 

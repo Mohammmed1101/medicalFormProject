@@ -10,6 +10,7 @@ export default  function CommentsList() {
   const {id} = useParams();
         const url = `/MyMediForm/drug/${id}/comments`;
         const [Comment, setComment] = useState([]);
+        const [loadingDrug,setLoadingDrug]= useState(true)
 
      const GetComment= async () => {
                 try {
@@ -17,6 +18,7 @@ export default  function CommentsList() {
                     const json = await response.json();
         
                     setComment(json)
+                    setLoadingDrug(false)
                 } catch (error) {
                     console.log("error", error);
                 }
@@ -80,7 +82,8 @@ function deletedrug(commentId)
               <p> {Comment.comment}</p>
 
               <ul class="list-inline d-sm-flex my-0">
-              {profile.role=="Consumer"&&"Specialist"?
+              {profile && 
+              profile.role==="Consumer"&&"Specialist"?
               <div>
                 <li class="list-inline-item g-mr-20">
                   
@@ -96,10 +99,11 @@ function deletedrug(commentId)
                 </li>
                 </div>
                 :""}
-        { localStorage.tokenSocial?
+          {profile &&
+
           profile.role.toString()=="Admin"?
                 <button onClick={()=>deletedrug(Comment._id)} style={{"float":"right"  ,"border":"0px"}} > <i class="bi bi-trash3-fill"></i></button>
-                :"" :""}
+                :""}
               </ul>
            
             </div>
@@ -113,7 +117,8 @@ function deletedrug(commentId)
   </div>
  
         );
-    
+
+        if(loadingDrug)return (<h1>loading</h1>)
     return (
         <div className='Comment'>
          <div>

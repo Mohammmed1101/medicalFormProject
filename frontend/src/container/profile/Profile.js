@@ -25,7 +25,7 @@ function Profile() {
                         {profile.avatar?<img src={profile.avatar} alt="pr" className="rounded-circle" width="150"/>:""}
                           <div className="mt-3">
                             <h4>{profile.firstName} {profile.lastName}</h4>
-                            {profile.role.toString()=="Consumer"?
+                            {profile.role==="Consumer"?
                             <div>
                             <button className="btn btn-outline-primary" onClick={Specialist} >الترقيه الى حساب طبيب</button> 
                             <SpecialistLicense ref ={show}/>
