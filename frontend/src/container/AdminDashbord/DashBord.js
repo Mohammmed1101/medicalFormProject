@@ -7,9 +7,6 @@ import AddDRA from './AddDRA';
 import Posts from "../posts/Posts"
 import SpLe from './SpLe';
 export default function DashBord(props) {
-  
-
-
 
     return (
      <div className='ma'>

@@ -76,6 +76,7 @@ function Profile() {
                         </div>
                       </div>
                     </div>
+                    {profile.role==="Consumer"?
                     <div className="col-md-15">
                     <div className="card mb-3">
                       <div className="card-body">
@@ -129,7 +130,7 @@ function Profile() {
                
                 </div>
       
-                </div> </div>
+                </div> :""}</div>
                 </div> </div> </div> </div>
            
     );

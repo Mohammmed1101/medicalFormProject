@@ -209,7 +209,7 @@ const resetPassword = async (e, token) => {
           Authorization:localStorage.tokenSocial,
         },
       })
-      
+      alert("شكرا لتقييمك هذا الدواء")
       // toast.success("Your rate is added")
     } catch (error) {
       if (error.response)  alert(error.response.data);//toast.error(error.response.data)

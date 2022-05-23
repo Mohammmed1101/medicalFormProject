@@ -83,7 +83,7 @@ function deletedrug(commentId)
 
               <ul class="list-inline d-sm-flex my-0">
               {profile && 
-              profile.role==="Consumer"&&"Specialist"?
+              profile.role==="Consumer"|| profile.role==="Specialist"?
               <div>
                 <li class="list-inline-item g-mr-20">
                   

@@ -33,6 +33,8 @@ function HomePost(props) {
             </div>
         </div>
     </div>
+
+    
     );
     if(loadingDrug)return(<img src='https://www.yanbuweather.com/pages/cloudsat/loading.gif?1' width={300}></img>)
     return (
