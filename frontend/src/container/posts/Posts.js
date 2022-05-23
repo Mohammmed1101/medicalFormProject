@@ -5,13 +5,14 @@ import PostsContext from "../../utils/PostsContext"
 function Posts() {
     const [post, setpost] = useState([]);
     const { profile } = useContext(PostsContext)
+    const [loadingDrug,setLoadingDrug]= useState(true)
         const url = "/MyMediForm/posts/posts";
         const fetchData = async () => {
             try {
                 const response = await fetch(url);
                 const json = await response.json();
-       
              setpost(json)
+             setLoadingDrug(false)
             } catch (error) {
                 console.log("error", error);
             }
@@ -53,6 +54,7 @@ function Posts() {
     </div>
     );
   
+    if(loadingDrug)return(<img src='https://www.yanbuweather.com/pages/cloudsat/loading.gif?1' width={300}></img>)
 
     return (
         <div className='row'>

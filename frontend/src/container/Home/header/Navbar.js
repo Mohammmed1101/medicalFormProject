@@ -238,7 +238,7 @@ const Sidebar = () => {
 
 
         </SlickBar>
-        { localStorage.tokenSocial?
+        { profile &&
 
         <Profile clicked={profileClick}>
           <img
@@ -249,12 +249,30 @@ const Sidebar = () => {
 
 
           <Details clicked={profileClick}>
-    
-            <Name>
-              <h4>{ profile &&  profile.name}</h4>
-               <a href="/profile">view&nbsp;profile</a> 
-            </Name>
+        
+          <>   {   profile &&
+                        profile.role==="Consumer"|| profile.role==="Specialist"?
+                        <Name>
+                         <h4>{ profile &&  profile.fristname}</h4>
+                          <a href="/profile">view&nbsp;profile</a> 
+                          </Name>    :""  } </> 
 
+
+          <>   {   profile &&
+                          profile.role==="Company"|| profile.role=="DRA"?
+                        <Name>
+                          <h4>{ profile &&  profile.fristname}</h4>
+                          <a href="/orgprofile">view&nbsp;profile</a> 
+                        </Name>      :""  } </> 
+
+
+           <>   { profile &&
+                         profile.role==="Admin"?
+                        <Name>
+                        <h4>{ profile &&  profile.fristname}</h4>
+                         <a href="/dashbord">view&nbsp;profile</a> 
+                        </Name>            
+                          :""  }  </> 
 
 
 
@@ -265,7 +283,7 @@ const Sidebar = () => {
             </Logout>
           </Details>
         </Profile>
-        :""}
+        }
       </SidebarContainer>
     </Container>
   );

@@ -64,7 +64,20 @@ function App() {
       getProfile()
       console.log("login success")
       setErrorLogin(null)
-      navigate("/profile")
+      if ( profile.role==='Admin'){
+         return navigate("dashbord")}
+         else if (profile.role==='DRA'){
+         return navigate("orgprofile")}
+         else if (profile.role==='Company'){
+         return navigate("orgprofile")}
+         else if (profile.role==='Consumer'){
+         return navigate("profile")}
+         else if ( profile.role==='Specialist'){
+         return navigate("profile")}
+         else
+         return navigate("/")
+      
+   
     } catch (error) {
       if (error.response) setErrorLogin(error.response.data)
       else console.log(error)
@@ -294,9 +307,9 @@ useEffect (()=>{
         <Route path="/drugs/:id" element={<DrugPage />} />
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
-       { profile&& profile.role==="Admin"?<Route path="/dashbord" element={<DashBord />} />:"غير مسموح لك بالوصول الى هذه الصفحه"}
-       { profile&&   profile.role==="Consumer"|| profile.role==="Specialist"?  <Route path="/profile" element={<Profile />} />:"غير مسموح لك بالوصول الى هذه الصفحه"}
-        { profile&& profile.role==="Company"|| profile.role==="DRA"?  <Route path="/orgprofile" element={<CompanyProfile/>} />:"غير مسموح لك بالوصول الى هذه الصفحه"}
+       { profile&&  <>{ profile.role==="Admin"?<Route path="/dashbord" element={<DashBord />} />:"غير مسموح لك بالوصول الى هذه الصفحه"} </>}
+       { profile&& <>{   profile.role==="Consumer"|| profile.role==="Specialist"?  <Route path="/profile" element={<Profile />} />:"غير مسموح لك بالوصول الى هذه الصفحه"} </>}
+        { profile&&<>{  profile.role==="Company"|| profile.role==="DRA"?  <Route path="/orgprofile" element={<CompanyProfile/>} />:"غير مسموح لك بالوصول الى هذه الصفحه"} </>}
         <Route path="/Forgetpassword" element={<Forgetpassword/>} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/email_verified/:token" element={<EmailVerified />} />

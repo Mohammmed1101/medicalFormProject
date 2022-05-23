@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState} from 'react';
 function SpLe() {
-
     const [ License,  setLicense] = useState([]);
+    const [loadingDrug,setLoadingDrug]= useState(true)
     const url = "/MyMediForm/auth/License";
     const fetchData = async () => {
         try {
@@ -10,6 +10,7 @@ function SpLe() {
             const json = await response.json();
     
          setLicense(json)
+         setLoadingDrug(false)
         } catch (error) {
             console.log("error", error);
         }
@@ -58,6 +59,7 @@ function SpLe() {
     
       )
 
+      if(loadingDrug)return(<img src='https://www.yanbuweather.com/pages/cloudsat/loading.gif?1' width={300}></img>)
 
     return (
         <div>

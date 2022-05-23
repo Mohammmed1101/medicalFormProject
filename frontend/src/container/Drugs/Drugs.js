@@ -11,6 +11,7 @@ export default  function Drugs() {
 const { profile } = useContext(PostsContext)
         const url = "/MyMediForm/drug/drugs";
         const [Drug, setDrug] = useState([]);
+        const [loadingDrug,setLoadingDrug]= useState(true)
       
             const fetchData = async () => {
                 try {
@@ -18,6 +19,7 @@ const { profile } = useContext(PostsContext)
                     const json = await response.json();
         
                  setDrug(json)
+                 setLoadingDrug(false)
                 } catch (error) {
                     console.log("error", error);
                 }
@@ -71,7 +73,7 @@ function deletedrug(id)
         </div>
         );
     
-
+        if(loadingDrug)return(<img src='https://www.yanbuweather.com/pages/cloudsat/loading.gif?1' width={300}></img>)
     return (
         <div className='drugs'>
        <div className="main">

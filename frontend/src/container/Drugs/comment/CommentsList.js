@@ -118,7 +118,8 @@ function deletedrug(commentId)
  
         );
 
-        if(loadingDrug)return (<h1>loading</h1>)
+        if(loadingDrug)return(<img src='https://www.yanbuweather.com/pages/cloudsat/loading.gif?1' width={300}></img>)
+
     return (
         <div className='Comment'>
          <div>
