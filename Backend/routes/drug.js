@@ -381,6 +381,7 @@ router.post("/:drugId/rate", async (req, res) => {
          await drug.findByIdAndUpdate(req.params.drugId, { $set: {  averrage: ratingAverage } })
        
         res.send("rating added")
+        console.log("rating added");
     } catch (error) {
         console.log(error.message)
         res.status(500).json("The problem in server")
