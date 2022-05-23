@@ -152,10 +152,11 @@ const resetPassword = async (e, token) => {
       })
 
       getProfile()
-      toast("added post");
+      toast("drug added");
     } catch (error) {
       if (error.response) toast.error(error.response.data)
       else console.log(error)
+      toast.error(error)
     }
   }
 

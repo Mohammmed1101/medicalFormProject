@@ -9,13 +9,14 @@ function HomeDrug() {
 
     const url = "/MyMediForm/drug/drugs";
     const [Drug, setDrug] = useState([]);
+    const [loadingDrug,setLoadingDrug]= useState(true)
 
         const fetchData = async () => {
             try {
                 const response = await fetch(url);
                 const json = await response.json();
-    
              setDrug(json)
+             setLoadingDrug(false)
             } catch (error) {
                 console.log("error", error);
             }
@@ -38,6 +39,7 @@ function HomeDrug() {
   );
 
 
+  if(loadingDrug)return(<img src='https://www.yanbuweather.com/pages/cloudsat/loading.gif?1' width={300}></img>)
 
     return (
       <div className='Home-Drugs'>

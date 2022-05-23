@@ -3,13 +3,14 @@ import "./Hpost.css"
 import { useState} from 'react';
 function HomePost(props) {
     const [post, setpost] = useState([]);
+    const [loadingDrug,setLoadingDrug]= useState(true)
   
         const url = "/MyMediForm/posts/posts";
         const fetchData = async () => {
             try {
                 const response = await fetch(url);
                 const json = await response.json();
-        
+                setLoadingDrug(false)
              setpost(json)
             } catch (error) {
                 console.log("error", error);
@@ -33,7 +34,7 @@ function HomePost(props) {
         </div>
     </div>
     );
-  
+    if(loadingDrug)return(<img src='https://www.yanbuweather.com/pages/cloudsat/loading.gif?1' width={300}></img>)
     return (
         <div>
     <div class="container">

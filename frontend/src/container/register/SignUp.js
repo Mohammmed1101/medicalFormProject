@@ -45,7 +45,10 @@ export default function SignUp() {
             }
             await axios.post("/MyMediForm/auth/signup", userBody)
             console.log("sucesfull")
+            return alert("تم تسجيلك بنجاح يرجى التحقق من البريد الالكتروني الخاص بك ")
+          
             nav("/login")
+
         } catch (error) {
             return alert("ERROR!!" + error.response.data)
           
