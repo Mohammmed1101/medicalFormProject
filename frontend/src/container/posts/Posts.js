@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState , useEffect } from 'react';
 import { useContext } from 'react'
 import PostsContext from "../../utils/PostsContext"
 function Posts() {
@@ -7,17 +7,24 @@ function Posts() {
     const { profile } = useContext(PostsContext)
     const [loadingDrug,setLoadingDrug]= useState(true)
         const url = "/MyMediForm/posts/posts";
-        const fetchData = async () => {
-            try {
-                const response = await fetch(url);
-                const json = await response.json();
-             setpost(json)
-             setLoadingDrug(false)
-            } catch (error) {
-                console.log("error", error);
-            }
-        };
-          fetchData();
+
+        useEffect(() => {
+          
+            const fetchData = async () => {
+                try {
+                    const response = await fetch(url);
+                    const json = await response.json();
+                 setpost(json)
+                 setLoadingDrug(false)
+                } catch (error) {
+                    console.log("error", error);
+                }
+            };
+        
+        
+        }, [])
+        
+         
 
  
    
