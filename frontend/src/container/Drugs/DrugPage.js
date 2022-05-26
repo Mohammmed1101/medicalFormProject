@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useParams } from "react-router-dom";
 import "./DrugStyle.css"
@@ -16,6 +16,7 @@ function DrugPage() {
       const { profile } = useContext(PostsContext)
     const {id} = useParams();
     
+    useEffect(()=>{
     const getDrug = async () => {
       try {
           const response = await axios.get( `/MyMediForm/drug/${id}`)
@@ -27,10 +28,11 @@ function DrugPage() {
           setDrug(null)
       }
   }
-
   getDrug ()
+})
 
-  if(loadingDrug)return(<img src='https://www.yanbuweather.com/pages/cloudsat/loading.gif?1' width={300}></img>)
+
+  if(loadingDrug)return(<img src='https://www.yanbuweather.com/pages/cloudsat/loading.gif?1'  alt='doctor' width={300}></img>)
 
  return ( 
       <div >
@@ -42,7 +44,7 @@ function DrugPage() {
                 <div className="card-body">
       
                   <div className="d-flex flex-column align-items-center text-center">
-                    <img src={Drug.image}alt="drug" className="rounded-circle" width="150"/>
+                    <img src={Drug.image}alt="drug" className="rounded-circle"   width="150"/>
                     <div className="mt-3">
                       <h4>{Drug.Name}</h4>
                       <p className="text-secondary mb-1">دواء مصرح من </p>

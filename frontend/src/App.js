@@ -19,6 +19,7 @@ import CompanyProfile from './container/profile/CompanyProfile';
 import Forgetpassword from './container/login/Forgetpassword';
 import ResetPassword from "./container/login/ResetPassword"
 import EmailVerified from "./container/register/EmailVerified"
+import { experimental_sx } from '@mui/material';
 
 function App() {
 
@@ -31,6 +32,8 @@ function App() {
   const [successForgetPassword, setSuccessForgetPassword] = useState(null)
   const navigate = useNavigate();
 
+  //////////////
+  //////////////
 
   const getProfile = async () => {
     const response = await axios.get("/MyMediForm/auth/profile", {
@@ -43,6 +46,7 @@ function App() {
 
   /////////////login
   const login = async e => {
+
     e.preventDefault()
     try {
       const form = e.target
@@ -65,17 +69,18 @@ function App() {
       console.log("login success")
       setErrorLogin(null)
       if ( profile.role==='Admin'){
-         return navigate("dashbord")}
+          navigate("dashbord") 
+        }
          else if (profile.role==='DRA'){
-         return navigate("orgprofile")}
+        navigate("orgprofile")}
          else if (profile.role==='Company'){
-         return navigate("orgprofile")}
+         navigate("orgprofile")}
          else if (profile.role==='Consumer'){
-         return navigate("profile")}
+         navigate("profile")}
          else if ( profile.role==='Specialist'){
-         return navigate("profile")}
+         navigate("profile")}
          else
-         return navigate("/")
+        navigate("/")
       
    
     } catch (error) {
@@ -84,8 +89,8 @@ function App() {
     }
   }
 
-//// 
-
+//////////////
+  //////////////
 const forgetPassword = async e => {
   e.preventDefault()
   try {
@@ -159,7 +164,8 @@ const resetPassword = async (e, token) => {
       toast.error(error)
     }
   }
-
+///////////////////
+///////////////////
   const deleteDrugs = async drugId => {
     try {
 
@@ -177,6 +183,7 @@ const resetPassword = async (e, token) => {
 
 
   //////////////add new comment 
+
 
 
   const addComment = async (e, Drugid) => {
@@ -198,7 +205,10 @@ const resetPassword = async (e, token) => {
       else console.log(error)
     }
   }
-  ///////////
+
+  //////////////
+  //////////////
+
   const addRate = async (Drugid, rate) => {
     try {
       const ratingBody = {
@@ -217,9 +227,9 @@ const resetPassword = async (e, token) => {
     }
   }
   
-   
- 
-  //////////
+  //////////////
+  //////////////
+
   const addPost = async e => {
     e.preventDefault()
     try {
@@ -243,6 +253,9 @@ const resetPassword = async (e, token) => {
       else console.log(error)
     }
   }
+
+  //////////////
+  //////////////
 
   const deletePost = async postId => {
     try {

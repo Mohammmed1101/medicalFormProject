@@ -18,7 +18,7 @@ function Forgetpassword() {
                            لا تقلق ان كنت نسيت كلمه المرور الخاصه بك 
 							</p>
                          
-                         <img className='forgetimg' src={Forget} width="300px"/>
+                         <img className='forgetimg'  alt='doctor' src={Forget} width="300px"/>
 						</div>
 						<div className="card-1">
 							<div className="card-body">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState} from 'react';
 import {Card}from "react-bootstrap"
 import { Slide } from 'react-slideshow-image';
@@ -10,7 +10,7 @@ function HomeDrug() {
     const url = "/MyMediForm/drug/drugs";
     const [Drug, setDrug] = useState([]);
     const [loadingDrug,setLoadingDrug]= useState(true)
-
+    useEffect(()=>{
         const fetchData = async () => {
             try {
                 const response = await fetch(url);
@@ -23,12 +23,12 @@ function HomeDrug() {
         };
           fetchData();
      
- 
+      })
 
    const listDrugs=Drug.map((Drug) =>
  
-    <Card className='' style={{ width: '40%', height:'-111px;' }}>
-    <Card.Img variant="top" src={Drug.image}  style={{ width: '30%'}} />
+    <Card className=''div key={Drug._id} style={{"width": '40%', "height":'-111px' }}>
+    <Card.Img variant="top" src={Drug.image}  style={{ 'width': '30%'}} />
     <Card.Body>
       <Card.Title>{Drug.Name}</Card.Title>
       <Card.Text> {Drug.description}</Card.Text>
@@ -39,7 +39,7 @@ function HomeDrug() {
   );
 
 
-  if(loadingDrug)return(<img src='https://www.yanbuweather.com/pages/cloudsat/loading.gif?1' width={300}></img>)
+  if(loadingDrug)return(<img src='https://www.yanbuweather.com/pages/cloudsat/loading.gif?1'  alt='doctor' width={300}></img>)
 
     return (
       <div className='Home-Drugs'>

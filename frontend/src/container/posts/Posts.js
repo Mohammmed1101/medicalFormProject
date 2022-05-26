@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useContext } from 'react'
 import PostsContext from "../../utils/PostsContext"
@@ -7,6 +7,7 @@ function Posts() {
     const { profile } = useContext(PostsContext)
     const [loadingDrug,setLoadingDrug]= useState(true)
         const url = "/MyMediForm/posts/posts";
+useEffect(()=>{
         const fetchData = async () => {
             try {
                 const response = await fetch(url);
@@ -19,7 +20,7 @@ function Posts() {
         };
           fetchData();
 
- 
+        })
    
     function deletedrug(id)
     {
@@ -34,7 +35,7 @@ function Posts() {
 
 
     const listpost = [...post].map((post) => 
-    <div className="col" key={post.id} style={{textAlign:"right"}}>
+    <div className="col" key={post._id} style={{textAlign:"right"}}>
         <div className='postcard' style={{width: "18rem;"}}>
            
              {post.image?< img src={post.image} className="card-img-top" alt="post"/>:""}
@@ -46,7 +47,7 @@ function Posts() {
         <>
          { profile.role==="Admin"?
                 <div className="card-body">            
-                 <button onClick={()=>deletedrug(post._id)} style={{"float":"right"  ,"border":"0px"}} > <i class="bi bi-trash3-fill"></i></button>
+                 <button onClick={()=>deletedrug(post._id)} style={{"float":"right"  ,"border":"0px"}} > <i className="bi bi-trash3-fill"></i></button>
                 </div>
              :""}</>}
             </div>
@@ -54,7 +55,7 @@ function Posts() {
     </div>
     );
   
-    if(loadingDrug)return(<img src='https://www.yanbuweather.com/pages/cloudsat/loading.gif?1' width={300}></img>)
+    if(loadingDrug)return(<img src='https://www.yanbuweather.com/pages/cloudsat/loading.gif?1'  alt='doctor' width={300}></img>)
 
     return (
         <div className='row'>

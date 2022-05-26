@@ -667,12 +667,12 @@ router.post("/signup/company", async (req, res) => {
 
 
 
-        //     let ws =wb.Sheets[wb.SheetNames[0]]
+        //     let wes =wb.Sheets[wb.SheetNames[0]]
         //   for (let index = 1; index <1000; index++) {
-        //     const coNo =ws[`A${index}`].v;
+        //     const coNo =wes[`A${index}`].v;
         //         if (company_No==coNo){
-        //             return res.status(400).json("register comblited")
-        //             await userBody.save()
+        //              res.status(400).json("register comblited")
+        //              break 
         //         }else
         //         return res.status(400).json("the company number is not correct !!")
         //    }
@@ -703,7 +703,7 @@ router.post("/signup/dra", async (req, res) => {
 
         const isAdmin = await User.findById(userId)
         if (!isAdmin) return res.status(404).json("المستخدم غير موجود")
-      //  if (isAdmin.role!=="Admin") return res.status(404).send("Only Admin Authoriz to creat this account !!")
+      if (isAdmin.role!=="Admin") return res.status(404).send("فقط المشرف يمكنه اضافه حساب جديد !!")
 
         //content
         const {firstName, username, email, password , role} = req.body
@@ -938,14 +938,8 @@ router.get("/profile", async (req, res) => {
         const userId = decryptToken.id
         req.userId = userId
 
-        const user = await User.findById(req.userId).select("-password").populate({ path:"comments" ,populate:{path:"comment"}})
-        .populate({ 
-            path: 'post',
-            populate: {
-              path: 'owner',
-              model: 'Post'
-            } 
-         })
+        const user = await User.findById(req.userId).select("-password").populate({ path:"comments" ,populate:{path:"comment"}}).populate({ path:"post" ,populate:{path:"title"}})
+
         if (!user) return res.status(404).json("user not found")
         // console.log(user)
         res.json(user)
@@ -1291,7 +1285,7 @@ router.post("/upgrade", async (req, res) => {
 
         const isConsumer = await User.findById(UserId)
         if (!isConsumer ) return res.status(404).json("المستخدم غير موجود")
-    //   if (isConsumer.role!=="Consumer") return res.status(404).send("you are not allowed to upGrade your acc ")
+     if (isConsumer.role!=="Consumer") return res.status(404).send("you are not allowed to upGrade your acc ")
         
         //validate
         const result = SpecialistJoi(req.body)
@@ -1324,8 +1318,8 @@ router.put("/AcceptLicense/:SpecialistLicenseid", async (req, res) => {
             if (!specialistLicense) return res.status(404).json("post not found")
     
                 await User.findByIdAndUpdate(specialistLicense.owner, { $set:{role:"Specialist" } })
-                res.json("Acc upgrade")
-            
+                res.json("تم ترقيه الحساب بنجاح")
+
         } catch (error) {
             console.log(error.message)
             res.status(500).json("The problem in server")
@@ -1354,7 +1348,7 @@ router.put("/AcceptLicense/:SpecialistLicenseid", async (req, res) => {
                  if (!specialistLicense) return res.status(404).json("post not found")
          
             await User.findByIdAndUpdate(req.userId, { $pull: {specialistLicense: specialistLicense._id } })
-            res.json(specialistLicense) 
+            res.json("تم حذف طلب ترقيه الحساب") 
         } catch (error) {
             console.log(error.message)
             res.status(500).json("The problem in server")
