@@ -1318,6 +1318,8 @@ router.put("/AcceptLicense/:SpecialistLicenseid", async (req, res) => {
             if (!specialistLicense) return res.status(404).json("post not found")
     
                 await User.findByIdAndUpdate(specialistLicense.owner, { $set:{role:"Specialist" } })
+                await User.findByIdAndUpdate(specialistLicense.owner, { $set:{avatar:"https://cdn1.iconfinder.com/data/icons/avatar-3/512/Doctor-512.png" } })
+
                 res.json("تم ترقيه الحساب بنجاح")
 
         } catch (error) {

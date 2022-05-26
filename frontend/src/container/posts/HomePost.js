@@ -37,13 +37,7 @@ function HomePost() {
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
 
-=======
-    
-
-    
->>>>>>> 5d6f3099cf5bfed0ab89a5023a2a6347e32f396c
     );
     if (loadingDrug) return (<img src='https://www.yanbuweather.com/pages/cloudsat/loading.gif?1'  alt='doctor' width={300}></img>)
     return (

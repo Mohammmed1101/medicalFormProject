@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-=======
-import React from 'react';
-import { useState , useEffect } from 'react';
->>>>>>> 5d6f3099cf5bfed0ab89a5023a2a6347e32f396c
 import { useContext } from 'react'
 import PostsContext from "../../utils/PostsContext"
 function Posts() {
@@ -12,20 +7,7 @@ function Posts() {
     const { profile } = useContext(PostsContext)
     const [loadingDrug,setLoadingDrug]= useState(true)
         const url = "/MyMediForm/posts/posts";
-<<<<<<< HEAD
-useEffect(()=>{
-        const fetchData = async () => {
-            try {
-                const response = await fetch(url);
-                const json = await response.json();
-             setpost(json)
-             setLoadingDrug(false)
-            } catch (error) {
-                console.log("error", error);
-            }
-        };
-          fetchData();
-=======
+
 
         useEffect(() => {
           
@@ -42,11 +24,7 @@ useEffect(()=>{
         
         fetchData();
         }, [])
-        
-         
->>>>>>> 5d6f3099cf5bfed0ab89a5023a2a6347e32f396c
-
-        })
+   
    
     function deletedrug(id)
     {

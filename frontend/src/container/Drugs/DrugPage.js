@@ -15,7 +15,7 @@ function DrugPage() {
     const [errorOnePost, setErrorOnePost] = useState(null)
       const { profile } = useContext(PostsContext)
     const {id} = useParams();
-    
+
     useEffect(()=>{
     const getDrug = async () => {
       try {
@@ -44,7 +44,7 @@ function DrugPage() {
                 <div className="card-body">
       
                   <div className="d-flex flex-column align-items-center text-center">
-                    <img src={Drug.image}alt="drug" className="rounded-circle"   width="150"/>
+                {Drug.image&& <img src={Drug.image}alt="drug" className="rounded-circle"   width="150"/>}
                     <div className="mt-3">
                       <h4>{Drug.Name}</h4>
                       <p className="text-secondary mb-1">دواء مصرح من </p>

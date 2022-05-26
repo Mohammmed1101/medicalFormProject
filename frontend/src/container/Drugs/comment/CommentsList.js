@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useParams } from "react-router-dom";
 import { useContext } from 'react'
@@ -11,7 +11,7 @@ export default  function CommentsList() {
         const url = `/MyMediForm/drug/${id}/comments`;
         const [Comment, setComment] = useState([]);
         const [loadingDrug,setLoadingDrug]= useState(true)
-
+useEffect(()=>{
      const GetComment= async () => {
                 try {
                     const response = await fetch(url);
@@ -24,7 +24,7 @@ export default  function CommentsList() {
                 }
             };
             GetComment()
-      
+          })
          
        function postLike (Commentid ) {
       
@@ -83,22 +83,21 @@ function deletedrug(commentId)
 
               <ul className="list-inline d-sm-flex my-0">
               {profile && 
-              profile.role==="Consumer"|| profile.role==="Specialist"?
-              <div>
+                 <div>
+              {profile.role==="Consumer"|| profile.role==="Specialist"?
+            <div>
                 <li className="list-inline-item g-mr-20">
                   
                     <i className="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3" onClick={()=>postLike(Comment._id)} ></i>
-                   {Comment.likes.length}
-                  
+                   {Comment.likes.length}           
                  </li>
-
                 <li className="list-inline-item g-mr-20">
                    <i className="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"onClick={()=>postdisLike(Comment._id)} ></i>
-                    {Comment.dislikes.length}
-                 
+                    {Comment.dislikes.length} 
                 </li>
                 </div>
-                :""}
+                :""}   </div>}
+             
           {profile &&
 
           profile.role.toString()==="Admin"?
