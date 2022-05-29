@@ -10,7 +10,7 @@ const { string, required, exist } = require('joi');
 const conversation = require("./routes/conversation")
 
 //connecting the DB
-mongoose.connect('mongodb://localhost:27017/MyMediForm')
+mongoose.connect(`mongodb+srv://abeerat52:${process.env.MONGO_PASS}@cluster0.y8l5hzw.mongodb.net/myMedForm?retryWrites=true&w=majority`)
 .then(() => console.log("connection"))
 .catch(err => console.log("fail connection" + err))
 
