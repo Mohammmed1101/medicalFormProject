@@ -19,7 +19,7 @@ function Profile() {
                         {profile.avatar?<img src={profile.avatar} alt="pr" className="rounded-circle" width="150"/>:""}
                           <div className="mt-3">
                             <h4>{profile.firstName} {profile.lastName}</h4>
-                            <button className="btn btn-outline-primary" >تعديل الحساب</button>
+                         
                           </div>
                         </div>
                       </div>
@@ -30,9 +30,10 @@ function Profile() {
                     <div className="card mb-3">
                       <div className="card-body" >
                    
-                      <div className="row"  style={{ "width":"800px"}}>
+                      <div className="row"  style={{ width:"600px"}}>
+                        
                       <Newpost/>
-                      <div className="card-body" style={{"width":"40%"}}>
+                      <div className="card-body" style={{width:"50%",  margin:"-29px -753px -6px 656px"}}>
                         {profile.role==="DRA"?<AddDrug />:""}
                         </div>
                       </div>
@@ -45,7 +46,20 @@ function Profile() {
                    
                       <div className="row"  style={{ "width":"800px"}}>
                       المنشورات المشاركه بواسطه هذا الحساب
-                 {profile.post.title}
+              {profile.post.map((post) => 
+    <div className="col" key={post._id} style={{textAlign:"right"}}>
+      <div   className="thedivofthepostcard">
+        <div className='postcard' style={{width: "80%"}}>
+           
+             {post.image?< img src={post.image} className="card-img-top" alt="post"/>:""}
+            <div className="card-body">
+                <h5 className="card-text">{post.title}</h5>
+                <p className="card-text">{post.description}</p>
+
+            </div>
+            </div>  </div>
+    </div>
+    )}
                         </div>
                       </div>
                     </div>

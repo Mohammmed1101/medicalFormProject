@@ -1,9 +1,11 @@
 import React from 'react';
-import { useState} from 'react';
+import { useState, useEffect} from 'react';
+import { Alert } from 'react-bootstrap';
 function SpLe() {
     const [ License,  setLicense] = useState([]);
     const [loadingDrug,setLoadingDrug]= useState(true)
     const url = "/MyMediForm/auth/License";
+    useEffect(()=>{
     const fetchData = async () => {
         try {
             const response = await fetch(url);
@@ -16,7 +18,7 @@ function SpLe() {
         }
     };
       fetchData();
-
+  })
 
       function Accept(id)
       {
@@ -24,7 +26,7 @@ function SpLe() {
               method:"PUT"
           }).then((result)=>{
               result.json().then((resp)=>{
-                  console.log(resp)
+                 window.alert(resp)
               })
           })
       }
@@ -36,7 +38,7 @@ function SpLe() {
               method:"DELETE"
           }).then((result)=>{
               result.json().then((resp)=>{
-                  console.log(resp)
+                window.alert(resp)
               })
           })
       }
@@ -44,14 +46,14 @@ function SpLe() {
   
 
       const listLicense = [...License].map((License) => 
-      <table class="table">
+      <table className="table" div key={License._id}>
      
       <tbody>
         <tr>
           <th scope="row"></th>
           <td>{License.Licensenumber}</td>
-          <td> <i class="bi bi-check-lg"button onClick={()=>Accept(License._id)} /      ></td>
-          <td><i class="bi bi-x-lg"        button onClick={()=>deletedrug(License._id)} ></i></td>
+          <td> <i className="bi bi-check-lg"button onClick={()=>Accept(License._id)} /      ></td>
+          <td><i className="bi bi-x-lg"        button onClick={()=>deletedrug(License._id)} ></i></td>
         </tr>
        
       </tbody>
@@ -59,12 +61,12 @@ function SpLe() {
     
       )
 
-      if(loadingDrug)return(<img src='https://www.yanbuweather.com/pages/cloudsat/loading.gif?1' width={300}></img>)
+      if(loadingDrug)return(<img src='https://www.yanbuweather.com/pages/cloudsat/loading.gif?1' alt='doctor' width={300}></img>)
 
     return (
         <div>
-        <table class="table">
-      <thead class="thead-dark">
+        <table className="table">
+      <thead className="thead-dark">
         <tr>
           <th scope="col">#</th>
           <th scope="col">رقم الرخصه</th>

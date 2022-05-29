@@ -14,7 +14,7 @@ function Forgetpassword() {
 					<div className="d-table-cell align-middle">
 						<div className="text-center mt-4">
 							<h1 className="h2">استعادة كلمه المرور</h1>                         
-                         <img className="resetimg"src="https://www.security.org/wp-content/uploads/2020/12/password-manager.png" width="55%"/>
+                         <img className="resetimg"src="https://www.security.org/wp-content/uploads/2020/12/password-manager.png"   alt='doctor' width="55%"/>
 						</div>
 						<div className="card2">
 							<div className="card-body">

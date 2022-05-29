@@ -30,6 +30,7 @@ export default function DashBord(props) {
 
       </Nav>
     </Col>
+    
     <Col sm={9}>
         
       <Tab.Content>

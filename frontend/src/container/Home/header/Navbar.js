@@ -244,7 +244,7 @@ const Sidebar = () => {
           <img
             onClick={() => handleProfileClick()}
             src="https://picsum.photos/200"
-            alt=""
+            alt='doctor'
           />
 
 
@@ -278,7 +278,7 @@ const Sidebar = () => {
 
      
      <Logout>
-              <img src={PowerOff} alt="logout"  onClick={logout}/>
+              <img src={PowerOff} alt="logout" onClick={logout}/>
 
             </Logout>
           </Details>

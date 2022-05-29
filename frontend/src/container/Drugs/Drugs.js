@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
 import "./drug.css"
 import { TextField } from '@mui/material';
 import { useContext} from "react"
@@ -12,7 +12,7 @@ const { profile } = useContext(PostsContext)
         const url = "/MyMediForm/drug/drugs";
         const [Drug, setDrug] = useState([]);
         const [loadingDrug,setLoadingDrug]= useState(true)
-      
+        useEffect(()=>{
             const fetchData = async () => {
                 try {
                     const response = await fetch(url);
@@ -25,7 +25,7 @@ const { profile } = useContext(PostsContext)
                 }
             };
               fetchData();
-         
+        })
     
 // function to delet 
 function deletedrug(id)
@@ -50,18 +50,18 @@ function deletedrug(id)
             } else if(drug.Name.toLowerCase().includes(key.toUpperCase())) {
                 return drug;
             }
-        }).map((Drug) =>
-            <div className="col-12 col-md-4 col-lg-3" key={Drug.id}>
-            <div className='card' style={{"width":" 18rem"}}>
+        }).sort((a, b) => b.rating.length - a.rating.length).map((Drug) =>
+            <div className="col-12 col-md-4 col-lg-3" key={Drug._id}>
+            <div className='card' style={{width:" 18rem;"}}>
                {Drug.image? <img src={Drug.image} className="card-img-top" alt="Drug "/>:""}
                 <div className="card-body">
-                <p  className="card-text" >{Drug.id}</p>
+          
                     <p className="card-text">{Drug.Name}</p>
 
                 {profile&&
                 <>
               { profile.role==="Admin" ?
-                <button onClick={()=>deletedrug(Drug._id)} style={{"float":"right"  ,"border":"0px"}} > <i class="bi bi-trash3-fill"></i></button>
+                <button onClick={()=>deletedrug(Drug._id)} style={{"float":"right"  ,"border":"0px"}} > <i className="bi bi-trash3-fill"></i></button>
                 :""}
                 </>}
 
@@ -73,7 +73,7 @@ function deletedrug(id)
         </div>
         );
     
-        if(loadingDrug)return(<img src='https://www.yanbuweather.com/pages/cloudsat/loading.gif?1' width={300}></img>)
+        if(loadingDrug)return(<img src='https://www.yanbuweather.com/pages/cloudsat/loading.gif?1'  alt='doctor' width={300}></img>)
     return (
         <div className='drugs'>
        <div className="main">

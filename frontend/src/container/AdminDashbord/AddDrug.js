@@ -25,7 +25,7 @@ export default function AddDrug() {
          <Form.Label>استخدامات الدواء</Form.Label>
          <Form.Control as="textarea"  required  name='termOfUse'  rows={3} /></Form.Group>
             
-         <Form.Group className="mb-3" controlId="formBasicName">
+         <Form.Group className="mb-3" >
          <Form.Control type="text" name='image' required  placeholder="رابط الصوره عنوان url  " /></Form.Group>
 
          <Form.Group className="mb-3" controlId="formBasicCheckbox">
