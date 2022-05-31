@@ -4,6 +4,7 @@ import PostsContext from '../../utils/PostsContext';
 import SpecialistLicense from './SpecialistLicense';
 import { useRef } from 'react';
 import "./profile.css"
+
 function Profile() {
   const show= useRef("");  
 

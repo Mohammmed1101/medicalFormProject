@@ -5,29 +5,27 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import axios from "axios";
 
-//slid  
+
 export default function SignUp() {
     const user = useRef(null);
     const company = useRef(null);
     const btn = useRef(null);
     const nav = useNavigate();
 
-
+//--------------------------TO SHOW THE REGISTER SIDE FOR CONSUMER----------------------------//
     function userreg() {
         user.current.style.left = "-400px"
         company.current.style.left = "50px"
         btn.current.style.left = "110px"
     }
-
-
+//--------------------------TO SHOW THE REGISTER SIDE FOR COMPANY----------------------------//
     function companyreg() {
         user.current.style.left = "50px"
         company.current.style.left = "450px"
         btn.current.style.left = "0px"
     }
 
-    // link with backend for useer
-
+//--------------------------SEND USER INFO TO BACKEND----------------------------//
     const [gender, setGender] = React.useState('');
 
     const signupforConsumer = async e => {
@@ -54,12 +52,7 @@ export default function SignUp() {
           
         }
     }
-
-
-
-
-    // for company 
-  
+  //--------------------------SEND USER INFO TO BACKEND FOR COMPANY----------------------------//
     const signupforCompany = async e => {
         e.preventDefault()
         try {
@@ -70,6 +63,7 @@ export default function SignUp() {
                 username: form.elements.username.value,
                 email: form.elements.email.value,
                 password: form.elements.password.value,
+                avatar: form.elements.avatar.value,
               
             }
             console.log(form.elements.gender)
@@ -111,6 +105,7 @@ export default function SignUp() {
                     <input type="text" name="username" className='input-field' placeholder='اسم المستخدم' required></input>
                     <input type="email" name="email"  className='input-field' placeholder='البريد الالكتروني' required></input>
                     <input type="password" name="password" className='input-field' placeholder='كلمه السر' required></input>
+                    <input type="url" name="avatar" className='input-field' placeholder='url الشعار الخاص بالشركه' required></input>
                     <button type="submit" name='submit' className='submit-btn'> إنشاء حساب</button>
                     <p> لديك حساب مسبقا؟<Link to="/login">تسجيل الدخول </Link></p>  
                 </form>

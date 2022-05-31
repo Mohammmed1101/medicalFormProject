@@ -20,7 +20,7 @@ export default function EmailVerified() {
             console.log("email verified")
             navigate("/login")
         } catch (error) {
-            console.log(error.response.data)
+            alert(error.response.data)
             setError(true)
         }
     }
@@ -29,7 +29,7 @@ export default function EmailVerified() {
         verifyEmailToken()
     }, [])
 
-    return error ? <h1>Verification failed </h1> : <>
+    return error ? <h1>فشل التحقق</h1> : <>
 
         <Box sx={{
             width: 300,

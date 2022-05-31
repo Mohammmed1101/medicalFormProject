@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useState ,useEffect} from 'react';
 import "./drug.css"
 import { TextField } from '@mui/material';
@@ -12,6 +12,7 @@ const { profile } = useContext(PostsContext)
         const url = "/MyMediForm/drug/drugs";
         const [Drug, setDrug] = useState([]);
         const [loadingDrug,setLoadingDrug]= useState(true)
+        const testing= useRef()
         useEffect(()=>{
             const fetchData = async () => {
                 try {
@@ -27,18 +28,30 @@ const { profile } = useContext(PostsContext)
               fetchData();
         })
     
-// function to delet 
+// function to delet
+function TestDeleteing(){
+
+    testing.current.style.display="block"
+   
+}
+
+function dontdelete(){
+
+    testing.current.style.display="none"
+   
+}
+
 function deletedrug(id)
 {
     fetch(`/MyMediForm/drug/${id}`,{
         method:"DELETE"
+        
     }).then((result)=>{
         result.json().then((resp)=>{
-            console.log(resp)
+           alert(resp)
         })
     })
 }
-
 
 
         //drug card 
@@ -50,7 +63,7 @@ function deletedrug(id)
             } else if(drug.Name.toLowerCase().includes(key.toUpperCase())) {
                 return drug;
             }
-        }).sort((a, b) => b.rating.length - a.rating.length).map((Drug) =>
+        }).map((Drug) =>
             <div className="col-12 col-md-4 col-lg-3" key={Drug._id}>
             <div className='card' style={{width:" 18rem;"}}>
                {Drug.image? <img src={Drug.image} className="card-img-top" alt="Drug "/>:""}
@@ -61,7 +74,19 @@ function deletedrug(id)
                 {profile&&
                 <>
               { profile.role==="Admin" ?
-                <button onClick={()=>deletedrug(Drug._id)} style={{"float":"right"  ,"border":"0px"}} > <i className="bi bi-trash3-fill"></i></button>
+
+<div>
+                <button onClick={TestDeleteing} style={{"float":"right"  ,"border":"0px"}} > <i className="bi bi-trash3-fill"></i></button>
+              
+
+              <div >
+                <div ref={testing}  style={{ "display":"none"}}>
+            <h6>are u sure u want to delete </h6>
+      <button onClick={()=>deletedrug(Drug._id)} >yes</button>
+<button onClick={dontdelete}>no</button>
+        </div>
+        </div>
+                </div>
                 :""}
                 </>}
 

@@ -448,7 +448,7 @@ router.post("/signup/admin", async (req, res) => {
 router.post("/signup/company", async (req, res) => {
     try {
         //content
-        const { companyName,company_No, username, email, password , role} = req.body
+        const { companyName,company_No, username, email, password , avatar,role} = req.body
 
         //validate
         const result =CompanyJoi(req.body)
@@ -468,6 +468,7 @@ router.post("/signup/company", async (req, res) => {
             company_No,
             username,
             email,
+            avatar,
             password: hash,
             role:"Company" ,
         })
@@ -949,6 +950,7 @@ router.get("/profile", async (req, res) => {
 
     }
 })
+//get email verification 
 router.get("/verify_email/:token", async (req, res) => {
     try {
         const decryptedToken = jwt.verify(req.params.token, process.env.JWT_SECRET_KEY);
@@ -995,21 +997,6 @@ router.put("/profile/editCompany", async (req, res) => {
 
     res.json(editUser)
 
-})
-//get email verification 
-router.get("/verify_email/:token", async (req, res) => {
-    try {
-        const decryptedToken = jwt.verify(req.params.token, process.env.JWT_SECRET_KEY);
-        const userId = decryptedToken.id;
-
-        if (!decryptedToken.emailVerification) return res.status(403).json("Unauthorized action")
-
-        const user = await User.findByIdAndUpdate(userId, { $set: { emailVerified: true } })
-        if (!user) return res.status(404).send("user not found");
-        res.send("user verified")
-    } catch (error) {
-        res.status(500).send(error.message)
-    }
 })
 // edit profile
 router.put("/profile/edit", async (req, res) => {
@@ -1254,21 +1241,6 @@ router.post("/reset-password/:token", async (req, res) => {
         res.status(500).json("The problem in server")
     }
 })
-//delete acc
-router.delete("/:id", async (req, res) => {
-    const isAdmin = await User.findById(userId)
-    if (!isAdmin) return res.status(404).json("user not found")
-      if (req.body.userId === req.params.id ||isAdmin.role=="Admin") {
-      try {
-        await User.findByIdAndDelete(req.params.id);
-        res.status(200).json("Account has been deleted");
-      } catch (err) {
-        return res.status(500).json(err);
-      }
-    } else {
-      return res.status(403).json("You cant delete only your account!");
-    }
-  });
 ///
 router.post("/upgrade", async (req, res) => {
     try {

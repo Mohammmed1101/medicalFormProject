@@ -121,7 +121,7 @@ function DrugPage() {
         {profile &&
         <>
         {  profile.role==="Consumer"?
-        <div className="col-md-4 mb-9" style={{"margin-top": "-275px"}}>
+        <div className="col-md-4 mb-9" style={{"margin-top": "-17px"}}>
                   <div className="card " >
                     <div className="card-body">
                 

@@ -123,8 +123,6 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
     try {
 
-        //check token
-       
         //check id
         const id = req.params.id
         if (!mongoose.Types.ObjectId.isValid(id))

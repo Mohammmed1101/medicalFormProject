@@ -59,6 +59,7 @@ const CompanyJoi= (input) => Joi.object({
     company_No :Joi.number().required(),
     username : Joi.string().regex(/^[a-zA-Z0-9._]+$/).min(4).max(9).required(),
     email: Joi.string().email().required(),
+    avatar: Joi.string().required(),
     password: passwordComplexity({
         min: 8,
         max: 30,

@@ -18,8 +18,8 @@ function Profile() {
                         <div className="d-flex flex-column align-items-center text-center">
                         {profile.avatar?<img src={profile.avatar} alt="pr" className="rounded-circle" width="150"/>:""}
                           <div className="mt-3">
-                            <h4>{profile.firstName} {profile.lastName}</h4>
-                         
+                            <h4>{profile.companyName} </h4>
+                            <h4>{profile.firstName} </h4>
                           </div>
                         </div>
                       </div>

@@ -32,10 +32,9 @@ function App() {
   const [successForgetPassword, setSuccessForgetPassword] = useState(null)
   const navigate = useNavigate();
 
-  //////////////
-  //////////////
-
-  const getProfile = async () => {
+         //---------------------------------------functions-----------------------------------//
+//------------------------------getProfile----------------------------//
+   const getProfile = async () => {
     const response = await axios.get("/MyMediForm/auth/profile", {
       headers: {
         Authorization: localStorage.tokenSocial
@@ -44,7 +43,7 @@ function App() {
     setProfile(response.data)
   }
 
-  /////////////login
+//------------------------------login----------------------------//
   const login = async e => {
 
     e.preventDefault()
@@ -88,9 +87,7 @@ function App() {
       else console.log(error)
     }
   }
-
-//////////////
-  //////////////
+//------------------------------forgetPassword ----------------------------//
 const forgetPassword = async e => {
   e.preventDefault()
   try {
@@ -115,7 +112,7 @@ const forgetPassword = async e => {
     else console.log(error)
   }
 }
-/////////////////
+//------------------------------reset password----------------------------//
 const resetPassword = async (e, token) => {
   e.preventDefault()
   try {
@@ -137,7 +134,7 @@ const resetPassword = async (e, token) => {
     else console.log(error)
   }
 }
-  ///////////////add new drug
+//------------------------------ADD NEW DRUG ----------------------------//
   const addDrug = async e => {
     e.preventDefault()
     try {
@@ -164,8 +161,7 @@ const resetPassword = async (e, token) => {
       toast.error(error)
     }
   }
-///////////////////
-///////////////////
+//------------------------------DELETE DRUG ----------------------------//
   const deleteDrugs = async drugId => {
     try {
 
@@ -180,12 +176,7 @@ const resetPassword = async (e, token) => {
       else console.log(error)
     }
   }
-
-
-  //////////////add new comment 
-
-
-
+//------------------------------ADD NEW COMMENT----------------------------//
   const addComment = async (e, Drugid) => {
     e.preventDefault()
     try {
@@ -205,10 +196,7 @@ const resetPassword = async (e, token) => {
       else console.log(error)
     }
   }
-
-  //////////////
-  //////////////
-
+//------------------------------ADD RATE----------------------------//
   const addRate = async (Drugid, rate) => {
     try {
       const ratingBody = {
@@ -226,10 +214,7 @@ const resetPassword = async (e, token) => {
       else alert(error)
     }
   }
-  
-  //////////////
-  //////////////
-
+  //------------------------------ADD NEW POST----------------------------//
   const addPost = async e => {
     e.preventDefault()
     try {
@@ -253,10 +238,7 @@ const resetPassword = async (e, token) => {
       else console.log(error)
     }
   }
-
-  //////////////
-  //////////////
-
+//------------------------------DELETE POST----------------------------//
   const deletePost = async postId => {
     try {
 
@@ -272,18 +254,14 @@ const resetPassword = async (e, token) => {
     }
   }
   
-  /////////////////////
-
-
-
+//------------------------------UPDATE THE PROFILE ----------------------------//
 useEffect (()=>{
 
   getProfile()
 
 }
 )
-
-  /////////////////STORE///////////////
+//------------------------------THE STORE TO PASS THE VALUES ----------------------------//
   const store = {
     login,
     errorLogin,
@@ -299,7 +277,7 @@ useEffect (()=>{
      errorResetPassword,
      Comment
   }
-
+//------------------------------Routes----------------------------//
   return (
 
 
